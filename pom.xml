@@ -39,18 +39,18 @@
     </dependency>
 
 
-<!--      &lt;!&ndash; Para @PostConstruct &ndash;&gt;-->
-<!--      <dependency>-->
-<!--          <groupId>javax.annotation</groupId>-->
-<!--          <artifactId>javax.annotation-api</artifactId>-->
-<!--          <version>1.3.2</version>-->
-<!--      </dependency>-->
+    <!--      &lt;!&ndash; Para @PostConstruct &ndash;&gt;-->
+    <!--      <dependency>-->
+    <!--          <groupId>javax.annotation</groupId>-->
+    <!--          <artifactId>javax.annotation-api</artifactId>-->
+    <!--          <version>1.3.2</version>-->
+    <!--      </dependency>-->
 
-      <dependency>
-          <groupId>jakarta.annotation</groupId>
-          <artifactId>jakarta.annotation-api</artifactId>
-          <version>2.1.1</version>
-      </dependency>
+    <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+      <version>2.1.1</version>
+    </dependency>
 
 
     <!-- Web MVC para construir API REST (Controladores, Jackson, validación a nivel web) -->
@@ -149,37 +149,44 @@
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
-      <!-- Stripe SDK -->
-      <!-- https://mvnrepository.com/artifact/com.stripe/stripe-java -->
-      <dependency>
-          <groupId>com.stripe</groupId>
-          <artifactId>stripe-java</artifactId>
-          <version>30.1.0</version>
-      </dependency>
+    <!-- Stripe SDK -->
+    <!-- https://mvnrepository.com/artifact/com.stripe/stripe-java -->
+    <dependency>
+      <groupId>com.stripe</groupId>
+      <artifactId>stripe-java</artifactId>
+      <version>30.1.0</version>
+    </dependency>
 
+    <!-- Google Gemini API  -->
+    <!-- https://ai.google.dev/gemini-api/docs -->
+    <dependency>
+      <groupId>com.google.genai</groupId>
+      <artifactId>google-genai</artifactId>
+      <version>1.0.0</version>
+    </dependency>
 
   </dependencies>
 
-<build>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.14.0</version>
-      <configuration>
-        <source>${java.version}</source>
-        <target>${java.version}</target>
-        <!-- Garantiza annotation processing explícito -->
-        <annotationProcessorPaths>
-          <path>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.42</version>
-          </path>
-        </annotationProcessorPaths>
-      </configuration>
-    </plugin>
-  </plugins>
-</build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.14.0</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <!-- Garantiza annotation processing explícito -->
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.18.42</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

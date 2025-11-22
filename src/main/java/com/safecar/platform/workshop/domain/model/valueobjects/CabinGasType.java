@@ -7,5 +7,6 @@ public enum CabinGasType {
     CO2,
     CO,
     FUEL_VAPOR,
+    SMOKE,
     UNKNOWN
 }

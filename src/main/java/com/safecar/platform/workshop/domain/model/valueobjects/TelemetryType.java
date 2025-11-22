@@ -10,5 +10,6 @@ public enum TelemetryType {
     ALERT,
     TIRE_PRESSURE,
     CABIN_GAS,
-    ACCELERATION
+    ACCELERATION,
+    SENSOR_DATA
 }

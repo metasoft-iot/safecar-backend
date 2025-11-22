@@ -18,6 +18,10 @@ import java.util.List;
 @Table(name = "vehicle_telemetry")
 public class VehicleTelemetry extends AuditableAbstractAggregateRoot<VehicleTelemetry> {
 
+    @Embedded
+    @AttributeOverride(name = "vehicleId", column = @Column(name = "vehicle_id"))
+    private com.safecar.platform.workshop.domain.model.valueobjects.VehicleId vehicleId;
+
     @Column(name = "last_ingested_at")
     private Instant lastIngestedAt;
 
@@ -32,8 +36,13 @@ public class VehicleTelemetry extends AuditableAbstractAggregateRoot<VehicleTele
         this.recordCount = 0;
     }
 
+    public VehicleTelemetry(com.safecar.platform.workshop.domain.model.valueobjects.VehicleId vehicleId) {
+        this.vehicleId = vehicleId;
+        this.recordCount = 0;
+    }
+
     public void ingest(TelemetrySample sample) {
-        if (sample == null) 
+        if (sample == null)
             throw new IllegalArgumentException("Telemetry sample cannot be null");
         var now = Instant.now();
         var record = new TelemetryRecord(sample, now);

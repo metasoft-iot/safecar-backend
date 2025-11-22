@@ -1,6 +1,8 @@
 package com.safecar.platform.workshop.interfaces.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.safecar.platform.workshop.domain.model.commands.FlushTelemetryCommand;
-import com.safecar.platform.workshop.domain.model.commands.IngestTelemetrySampleCommand;
+
 import com.safecar.platform.workshop.domain.model.queries.GetTelemetryAlertsBySeverityQuery;
 import com.safecar.platform.workshop.domain.model.queries.GetTelemetryByVehicleAndRangeQuery;
 import com.safecar.platform.workshop.domain.model.queries.GetTelemetryRecordByIdQuery;
@@ -42,7 +44,14 @@ public class TelemetriesController {
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a new telemetry sample")
-    public ResponseEntity<Void> createTelemetrySample(@RequestBody IngestTelemetrySampleCommand command) {
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Telemetry sample created"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
+    public ResponseEntity<Void> createTelemetrySample(
+            @RequestBody com.safecar.platform.workshop.interfaces.rest.resources.CreateTelemetryResource resource) {
+        var command = com.safecar.platform.workshop.interfaces.rest.transform.CreateTelemetryCommandFromResourceAssembler
+                .toCommandFromResource(resource);
         commandService.handle(command);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -52,6 +61,10 @@ public class TelemetriesController {
      */
     @DeleteMapping(value = "/bulk", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Bulk delete telemetry records for an aggregate id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Telemetry records deleted"),
+            @ApiResponse(responseCode = "404", description = "Aggregate not found")
+    })
     public ResponseEntity<Long> bulkDeleteTelemetry(@RequestBody FlushTelemetryCommand command) {
         var count = commandService.handle(command);
         return ResponseEntity.ok(count);
@@ -62,6 +75,10 @@ public class TelemetriesController {
      */
     @GetMapping(value = "/{id}")
     @Operation(summary = "Get telemetry record by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Telemetry record found"),
+            @ApiResponse(responseCode = "404", description = "Telemetry record not found")
+    })
     public ResponseEntity<TelemetryRecordResource> getTelemetryById(@PathVariable Long id) {
         var query = new GetTelemetryRecordByIdQuery(id);
         var maybe = queryService.handle(query);
@@ -74,13 +91,17 @@ public class TelemetriesController {
     /**
      * Get telemetry records for vehicle in range.
      * 
-     * @param vehicleId   The ID of the vehicle.
-     * @param from        The start time of the range.
-     * @param to          The end time of the range.
+     * @param vehicleId The ID of the vehicle.
+     * @param from      The start time of the range.
+     * @param to        The end time of the range.
      * @return A list of telemetry records for the vehicle in the specified range.
      */
     @GetMapping
     @Operation(summary = "Get telemetry records for vehicle in range")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Telemetry records found"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
     public ResponseEntity<List<TelemetryRecordResource>> getTelemetryByVehicleAndRange(@RequestParam Long vehicleId,
             @RequestParam Instant from, @RequestParam Instant to) {
         var vehicle = new com.safecar.platform.workshop.domain.model.valueobjects.VehicleId(vehicleId);
@@ -101,6 +122,10 @@ public class TelemetriesController {
      */
     @GetMapping(value = "/alerts")
     @Operation(summary = "Get telemetry alerts by severity in range")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Telemetry alerts found"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
     public ResponseEntity<List<TelemetryRecordResource>> getAlertsBySeverity(
             @RequestParam com.safecar.platform.workshop.domain.model.valueobjects.AlertSeverity severity,
             @RequestParam Instant from, @RequestParam Instant to) {

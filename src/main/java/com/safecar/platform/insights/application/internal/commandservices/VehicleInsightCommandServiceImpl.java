@@ -19,14 +19,37 @@ public class VehicleInsightCommandServiceImpl implements VehicleInsightCommandSe
 
     private final VehicleInsightRepository repository;
     private final TelemetryAnalyticsGateway analyticsGateway;
+    private final com.safecar.platform.workshop.interfaces.acl.WorkshopContextFacade workshopContextFacade;
 
     @Override
     @Transactional
     public VehicleInsight handle(GenerateVehicleInsightCommand command) {
-        var analysis = analyticsGateway.analyze(command);
-        LOGGER.debug("Telemetry analytics completed for vehicle {} with risk {}", 
-                command.vehicle().vehicleId(), analysis.riskLevel());
-        var insight = new VehicleInsight(command.vehicle(), analysis);
+        var sample = workshopContextFacade.fetchTelemetrySample(command.telemetryId())
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Telemetry not found for ID: " + command.telemetryId()));
+
+        var vehicle = new com.safecar.platform.insights.domain.model.valueobjects.VehicleReference(
+                sample.driverId().driverId(),
+                "Driver " + sample.driverId().driverId(), // Placeholder as we don't have name
+                sample.vehicleId().vehicleId(),
+                "VEH-" + sample.vehicleId().vehicleId() // Placeholder
+        );
+
+        var payload = new com.safecar.platform.insights.domain.model.valueobjects.TelemetrySensorPayload(
+                sample.timestamp().occurredAt(),
+                sample.cabinGasLevel() != null ? sample.cabinGasLevel().concentrationPpm() : null,
+                null, // Engine Temp not in Workshop yet
+                null, // Ambient Temp not in Workshop yet
+                null, // Humidity not in Workshop yet
+                null, // Current Amps not in Workshop yet
+                sample.location() != null ? sample.location().latitude() : null,
+                sample.location() != null ? sample.location().longitude() : null,
+                sample.severity().name());
+
+        var analysis = analyticsGateway.analyze(vehicle, payload);
+        LOGGER.debug("Telemetry analytics completed for vehicle {} with risk {}",
+                vehicle.vehicleId(), analysis.riskLevel());
+        var insight = new VehicleInsight(vehicle, analysis);
         return repository.save(insight);
     }
 }
