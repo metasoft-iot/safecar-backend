@@ -32,6 +32,7 @@ import java.util.List;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -56,12 +57,12 @@ public class GeminiTelemetryAnalyticsGateway implements TelemetryAnalyticsGatewa
         private String model;
 
         @Override
-        public TelemetryInsightResult analyze(VehicleReference vehicle, TelemetrySensorPayload payload) {
+        public TelemetryInsightResult analyze(VehicleReference vehicle, List<TelemetrySensorPayload> payloads) {
                 validateApiKey();
                 validateModel();
                 var config = buildGenerateContentConfig();
                 var chat = geminiClient.chats.create(model, config);
-                var userContent = buildUserContent(vehicle, payload);
+                var userContent = buildUserContent(vehicle, payloads);
 
                 try {
                         var response = chat.sendMessage(List.of(userContent));
@@ -104,51 +105,58 @@ public class GeminiTelemetryAnalyticsGateway implements TelemetryAnalyticsGatewa
 
         private Content buildSystemInstruction() {
                 var prompt = "Eres el analista de conducción y mantenimiento de Safecar. " +
-                                "Analiza los datos de sensores y responde en JSON válido respetando el esquema solicitado.";
+                                "Analiza el historial de datos de sensores y responde en JSON válido respetando el esquema solicitado.";
                 return Content.builder()
                                 .role("system")
                                 .parts(List.of(Part.fromText(prompt)))
                                 .build();
         }
 
-        private Content buildUserContent(VehicleReference vehicle, TelemetrySensorPayload payload) {
+        private Content buildUserContent(VehicleReference vehicle, List<TelemetrySensorPayload> payloads) {
                 return Content.builder()
                                 .role("user")
                                 .parts(List.of(
                                                 Part.fromText(buildUserPrompt(vehicle)),
-                                                Part.fromText(buildPayload(payload))))
+                                                Part.fromText(buildPayloadsJson(payloads))))
                                 .build();
         }
 
         private String buildUserPrompt(VehicleReference vehicle) {
                 return """
-                                Genera analíticas y recomendaciones para:
+                                Genera analíticas y recomendaciones basadas en el historial reciente para:
                                 - Conductor: %s
                                 - Vehículo (placa %s)
-                                Devuelve mantenimiento predictivo y hábitos de conducción.
+                                Devuelve mantenimiento predictivo y hábitos de conducción considerando tendencias.
                                 """.formatted(vehicle.driverFullName(), vehicle.plateNumber());
         }
 
-        private String buildPayload(TelemetrySensorPayload sensor) {
-                var payload = new LinkedHashMap<String, Object>();
-                
-                // Add sensor data, handling null values
-                payload.put("gas_level", sensor.gasLevel() != null ? sensor.gasLevel() : "N/A");
-                payload.put("engine_temp", sensor.engineTemperature() != null ? sensor.engineTemperature() : "N/A");
-                payload.put("ambient_temp", sensor.ambientTemperature() != null ? sensor.ambientTemperature() : "N/A");
-                payload.put("humidity", sensor.humidity() != null ? sensor.humidity() : "N/A");
-                payload.put("current_amps", sensor.currentAmps() != null ? sensor.currentAmps() : "N/A");
-                
-                // Build location map handling null values
-                var location = new LinkedHashMap<String, Object>();
-                location.put("lat", sensor.latitude() != null ? sensor.latitude() : "N/A");
-                location.put("lng", sensor.longitude() != null ? sensor.longitude() : "N/A");
-                payload.put("location", location);
+        private String buildPayloadsJson(List<TelemetrySensorPayload> payloads) {
+                var list = new ArrayList<Map<String, Object>>();
+                for (var sensor : payloads) {
+                        var payload = new LinkedHashMap<String, Object>();
+                        payload.put("captured_at", sensor.capturedAt() != null ? sensor.capturedAt().toString() : "N/A");
+                        
+                        // Add sensor data, handling null values
+                        payload.put("gas_level", sensor.gasLevel() != null ? sensor.gasLevel() : "N/A");
+                        payload.put("engine_temp", sensor.engineTemperature() != null ? sensor.engineTemperature() : "N/A");
+                        payload.put("ambient_temp", sensor.ambientTemperature() != null ? sensor.ambientTemperature() : "N/A");
+                        payload.put("humidity", sensor.humidity() != null ? sensor.humidity() : "N/A");
+                        payload.put("current_amps", sensor.currentAmps() != null ? sensor.currentAmps() : "N/A");
+                        
+                        // Build location map handling null values
+                        var location = new LinkedHashMap<String, Object>();
+                        location.put("lat", sensor.latitude() != null ? sensor.latitude() : "N/A");
+                        location.put("lng", sensor.longitude() != null ? sensor.longitude() : "N/A");
+                        payload.put("location", location);
+                        payload.put("severity", sensor.alertSeverity());
+                        
+                        list.add(payload);
+                }
 
                 try {
-                        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(payload);
+                        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(list);
                 } catch (JsonProcessingException e) {
-                        throw new IllegalStateException("Unable to serialize telemetry payload", e);
+                        throw new IllegalStateException("Unable to serialize telemetry payload list", e);
                 }
         }
 

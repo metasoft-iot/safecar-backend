@@ -4,6 +4,8 @@ import com.safecar.platform.insights.domain.model.valueobjects.VehicleReference;
 import com.safecar.platform.insights.domain.model.valueobjects.TelemetryInsightResult;
 import com.safecar.platform.insights.domain.model.valueobjects.TelemetrySensorPayload;
 
+import java.util.List;
+
 /**
  * Telemetry Analytics Gateway
  * 
@@ -15,5 +17,5 @@ import com.safecar.platform.insights.domain.model.valueobjects.TelemetrySensorPa
 public interface TelemetryAnalyticsGateway {
 
     TelemetryInsightResult analyze(VehicleReference vehicle,
-            TelemetrySensorPayload payload);
+            List<TelemetrySensorPayload> payloads);
 }

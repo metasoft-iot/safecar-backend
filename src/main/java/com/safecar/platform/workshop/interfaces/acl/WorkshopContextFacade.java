@@ -25,4 +25,13 @@ public interface WorkshopContextFacade {
      *         Optional if not found.
      */
     Optional<TelemetrySample> fetchTelemetrySample(Long telemetryId);
+
+    /**
+     * Method to fetch recent telemetry samples for a vehicle.
+     *
+     * @param vehicleId The ID of the vehicle.
+     * @param limit     The maximum number of samples to return.
+     * @return A list of recent telemetry samples.
+     */
+    java.util.List<TelemetrySample> fetchRecentTelemetrySamples(Long vehicleId, int limit);
 }
