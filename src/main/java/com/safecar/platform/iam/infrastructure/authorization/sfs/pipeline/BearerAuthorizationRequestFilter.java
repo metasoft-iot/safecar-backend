@@ -12,22 +12,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import com.safecar.platform.iam.infrastructure.tokens.jwt.BearerTokenService;
 import com.safecar.platform.iam.infrastructure.authorization.sfs.model.UserDetailsImpl;
 import com.safecar.platform.iam.infrastructure.authorization.sfs.model.UsernamePasswordAuthenticationTokenBuilder;
+import com.safecar.platform.iam.infrastructure.authorization.sfs.services.ExtendedUserDetailsService;
 
 import java.io.IOException;
 
 /**
  * Filter to authenticate requests with Bearer token
  * <p>
- *     This filter will authenticate requests with Bearer token.
- *     It will extract the token from the request and validate it.
- *     If the token is valid, it will set the user authentication in the security context.
- *     The user authentication will be set with the user details from the token.
+ * This filter will authenticate requests with Bearer token.
+ * It will extract the token from the request and validate it.
+ * If the token is valid, it will set the user authentication in the security
+ * context.
+ * The user authentication will be set with the user details from the token.
  * </p>
  */
 public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
@@ -36,14 +37,15 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
     private final BearerTokenService tokenService;
 
     @Qualifier("defaultUserDetailsService")
-    private final UserDetailsService userDetailsService;
+    private final ExtendedUserDetailsService userDetailsService;
 
     /**
      * Constructor
-     * @param tokenService {@link BearerTokenService} Bearer token service
-     * @param userDetailsService {@link UserDetailsService} User details service
+     * 
+     * @param tokenService       {@link BearerTokenService} Bearer token service
+     * @param userDetailsService {@link ExtendedUserDetailsService} Extended user details service
      */
-    public BearerAuthorizationRequestFilter(BearerTokenService tokenService, UserDetailsService userDetailsService) {
+    public BearerAuthorizationRequestFilter(BearerTokenService tokenService, ExtendedUserDetailsService userDetailsService) {
         this.tokenService = tokenService;
         this.userDetailsService = userDetailsService;
     }
@@ -51,17 +53,19 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
     /**
      * Filter requests
      * <p>
-     *     This method will filter the requests.
-     *     It will extract the Bearer token from the request.
-     *     If the token is valid, it will set the user authentication in the security context.
-     *     The user authentication will be set with the user details from the token.
-     *     If the token is not valid, it will log a warning.
+     * This method will filter the requests.
+     * It will extract the Bearer token from the request.
+     * If the token is valid, it will set the user authentication in the security
+     * context.
+     * The user authentication will be set with the user details from the token.
+     * If the token is not valid, it will log a warning.
      * </p>
-     * @param request {@link HttpServletRequest} Request
-     * @param response {@link HttpServletResponse} Response
+     * 
+     * @param request     {@link HttpServletRequest} Request
+     * @param response    {@link HttpServletResponse} Response
      * @param filterChain {@link FilterChain} Filter chain
      * @throws ServletException If an error occurs
-     * @throws IOException If an error occurs
+     * @throws IOException      If an error occurs
      */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
@@ -70,14 +74,13 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
             // ──── 1) Extraer el header y el token ────────────────
             String bearerToken = tokenService.getBearerTokenFrom(request);
             if (bearerToken != null && tokenService.validateToken(bearerToken)) {
-                // ──── 2) Obtener el username y cargar UserDetails ───
-                String username = tokenService.getUsernameFromToken(bearerToken);
-                UserDetailsImpl user = (UserDetailsImpl)
-                        userDetailsService.loadUserByUsername(username);
+                // ──── 2) Obtener el email y cargar UserDetails ───
+                var email = tokenService.getEmailFromToken(bearerToken);
+                var user = (UserDetailsImpl) userDetailsService.loadUserByEmail(email);
 
                 // ──── 3) Construir el Authentication y setear en contexto ───
-                UsernamePasswordAuthenticationToken auth = 
-                UsernamePasswordAuthenticationTokenBuilder.build(user, request);
+                UsernamePasswordAuthenticationToken auth = UsernamePasswordAuthenticationTokenBuilder.build(user,
+                        request);
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }

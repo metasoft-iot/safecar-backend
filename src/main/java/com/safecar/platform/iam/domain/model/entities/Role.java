@@ -46,7 +46,7 @@ public class Role {
      * The name of the role, represented as an enum.
      */
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, unique = true, nullable = false)
+    @Column(length = 50, unique = true, nullable = false)
     private Roles name;
 
     /**

@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 
 import com.safecar.platform.iam.infrastructure.authorization.sfs.pipeline.BearerAuthorizationRequestFilter;
+import com.safecar.platform.iam.infrastructure.authorization.sfs.services.ExtendedUserDetailsService;
 import com.safecar.platform.iam.infrastructure.hashing.bcrypt.BCryptHashingService;
 import com.safecar.platform.iam.infrastructure.tokens.jwt.BearerTokenService;
 
@@ -35,12 +36,12 @@ public class WebSecurityConfiguration {
 
     private final BearerTokenService tokenService;
     private final BCryptHashingService hashingService;
-    private final UserDetailsService userDetailsService;
+    private final ExtendedUserDetailsService userDetailsService;
     private final AuthenticationEntryPoint unauthorizedRequestHandlerEntryPoint;
 
     public WebSecurityConfiguration(
             @Qualifier("defaultUserDetailsService")
-            UserDetailsService userDetailsService,
+            ExtendedUserDetailsService userDetailsService,
             BearerTokenService tokenService,
             BCryptHashingService hashingService,
             AuthenticationEntryPoint unauthorizedRequestHandlerEntryPoint) {
@@ -59,7 +60,7 @@ public class WebSecurityConfiguration {
     @Bean
     public BearerAuthorizationRequestFilter authorizationRequestFilter(
             BearerTokenService tokenService,
-            @Qualifier("defaultUserDetailsService") UserDetailsService uds
+            @Qualifier("defaultUserDetailsService") ExtendedUserDetailsService uds
     ) {
         return new BearerAuthorizationRequestFilter(tokenService, uds);
     }
@@ -83,6 +84,7 @@ public class WebSecurityConfiguration {
      * @return DaoAuthenticationProvider configured with user details and password encoder.
      */
     @Bean
+    @SuppressWarnings("deprecation")
     public DaoAuthenticationProvider authenticationProvider() {
         var provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
@@ -112,9 +114,18 @@ public class WebSecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // URLs we leave unsecured (including Swagger/OpenAPI)
+        // URLs we leave unsecured (including Swagger/OpenAPI and Profiles for testing)
         String[] publicMatchers = {
                 "/api/v1/authentication/**",
+                "/api/v1/profiles/**",
+                "/api/v1/person-profiles/**", // Allow public access for profile creation during sign-up
+                "/api/v1/drivers/**", // Allow public access to driver data
+                "/api/v1/workshops/**", // Allow public access to view workshops
+                "/api/v1/vehicles/**", // Allow public access to vehicle data
+                "/api/v1/appointments/**", // Allow public access to appointments
+                "/api/v1/telemetry/**", // Allow public access to telemetry data
+                "/api/v1/insights/**", // Allow public access to insights
+                "/error", // Allow access to error page
                 "/v3/api-docs/**",
                 "/swagger-ui.html",
                 "/swagger-ui/**",

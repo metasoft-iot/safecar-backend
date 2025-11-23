@@ -54,6 +54,8 @@ public class UserDetailsImpl implements UserDetails {
      */
     private final boolean credentialsNonExpired;
 
+    private final Long id;
+
     /**
      * The authorities granted to the user.
      */
@@ -67,7 +69,8 @@ public class UserDetailsImpl implements UserDetails {
      * @param password    the password for the user
      * @param authorities the authorities granted to the user
      */
-    public UserDetailsImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.authorities = authorities;
@@ -94,6 +97,7 @@ public class UserDetailsImpl implements UserDetails {
             .toList();
         
         return new UserDetailsImpl(
+                user.getId(),
                 user.getEmail(),
                 user.getPassword(),
                 authorities

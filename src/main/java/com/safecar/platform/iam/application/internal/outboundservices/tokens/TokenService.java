@@ -9,17 +9,17 @@ package com.safecar.platform.iam.application.internal.outboundservices.tokens;
  */
 public interface TokenService {
     /**
-     * Generate a token for a given username.
-     * @param username the username to generate the token for
+     * Generate a token for a given email.
+     * @param email the email to generate the token for
      * @return the generated token
      */
-    String generateToken(String username);
+    String generateToken(String email);
     /**
-     * Extract the username from a token.
-     * @param token the token to extract the username from
-     * @return the username extracted from the token
+     * Extract the email from a token.
+     * @param token the token to extract the email from
+     * @return the email extracted from the token
      */
-    String getUsernameFromToken(String token);
+    String getEmailFromToken(String token);
     /**
      * Validate a token.
      * @param token the token to validate

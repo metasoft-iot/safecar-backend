@@ -6,6 +6,7 @@ import com.safecar.platform.iam.domain.model.aggregates.User;
 import com.safecar.platform.iam.domain.model.valueobjects.Email;
 import com.safecar.platform.iam.domain.model.queries.GetAllUsersQuery;
 import com.safecar.platform.iam.domain.model.queries.GetUserByEmailQuery;
+import com.safecar.platform.iam.domain.model.queries.GetUserByIdQuery;
 import com.safecar.platform.iam.domain.services.UserQueryService;
 import com.safecar.platform.iam.infrastructure.persistence.jpa.repositories.UserRepository;
 
@@ -47,6 +48,16 @@ public class UserQueryServiceImpl implements UserQueryService {
      */
     @Override
     public Optional<User> handle(GetUserByEmailQuery query) {
-    return userRepository.findByEmail(new Email(query.email()));
+        return userRepository.findByEmail(new Email(query.email()));
+    }
+
+    /**
+     * Handles the {@link GetUserByIdQuery} query.
+     * @param query the {@link GetUserByIdQuery} instance
+     * @return the {@link User} instance if found
+     */
+    @Override
+    public Optional<User> handle(GetUserByIdQuery query) {
+        return userRepository.findById(query.userId());
     }
 }

@@ -53,32 +53,42 @@ public class UserCommandServiceImpl implements UserCommandService {
     public Optional<User> handle(SignUpCommand command) {
         if (userRepository.existsByEmail(new Email(command.email())))
             throw new RuntimeException("Email already exists");
-    var roles = command.roles().stream()
-        .map(role -> roleRepository.findByName(role.getName())
-            .orElseThrow(() -> new RuntimeException("Role not found")))
-        .collect(Collectors.toSet());
-    // If no roles were provided, assign the persisted default role
-    if (roles.isEmpty()) {
-        var defaultRole = roleRepository.findByName(Roles.ROLE_CLIENT)
-            .orElseThrow(() -> new RuntimeException("Default role not found"));
-        roles.add(defaultRole);
-    }
-    var user = new User(command.email(), hashingService.encode(command.password()), roles);
-    userRepository.save(user);
-    return userRepository.findByEmail(new Email(command.email()));
+
+        var roles = command.roles().stream()
+                .map(role -> roleRepository.findByName(role.getName())
+                        .orElseThrow(() -> new RuntimeException("Role not found")))
+                .collect(Collectors.toSet());
+
+        // If no roles were provided, assign the persisted default role
+        if (roles.isEmpty()) {
+            var defaultRole = roleRepository.findByName(Roles.ROLE_CLIENT)
+                    .orElseThrow(() -> new RuntimeException("Default role not found"));
+            roles.add(defaultRole);
+        }
+
+        var saved = userRepository.save(new User(
+                command.email(),
+                hashingService.encode(command.password()),
+                roles));
+
+        return Optional.of(saved);
     }
 
     // inherited javadoc
     @Override
     public Optional<ImmutablePair<User, String>> handle(SignInCommand command) {
-    var user = userRepository.findByEmail(new Email(command.email()));
+        var user = userRepository.findByEmail(new Email(command.email()));
+
         if (user.isEmpty())
             throw new RuntimeException("User not found");
+
         var existingUser = user.get();
+        
         if (!hashingService.matches(command.password(), existingUser.getPassword()))
             throw new RuntimeException("Invalid password");
-    // Generate token using user's UUID as subject so the UserDetailsService can load the user by id (it expects a UUID string)
-    var token = tokenService.generateToken(existingUser.getId().toString());
+
+        var token = tokenService.generateToken(existingUser.getEmail());
+
         return Optional.of(ImmutablePair.of(existingUser, token));
     }
 }

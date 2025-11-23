@@ -1,7 +1,6 @@
 package com.safecar.platform.iam.domain.model.aggregates;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,9 +23,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.AttributeOverride;
 
 /**
- * User Aggregate 
+ * User Aggregate
  * <p>
- * Represents a user in the system with email, password, and roles. 
+ * Represents a user in the system with email, password, and roles.
  * </p>
  * 
  * @author GonzaloQu3dena
@@ -36,7 +35,7 @@ import jakarta.persistence.AttributeOverride;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class User extends AuditableAbstractAggregateRoot<User>{
+public class User extends AuditableAbstractAggregateRoot<User> {
 
     /**
      * User's email address
@@ -56,11 +55,7 @@ public class User extends AuditableAbstractAggregateRoot<User>{
      * Roles assigned to the user
      */
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "user_roles",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     /**
@@ -73,10 +68,12 @@ public class User extends AuditableAbstractAggregateRoot<User>{
     }
 
     /**
-     * Parameterized constructor to create a user with specified email, password, and role.
-     * @param email User's email address
+     * Parameterized constructor to create a user with specified email, password,
+     * and role.
+     * 
+     * @param email    User's email address
      * @param password User's password
-     * @param role Role to be assigned to the user
+     * @param role     Role to be assigned to the user
      */
     public User(String email, String password, Role role) {
         this.email = new Email(email);
@@ -92,6 +89,7 @@ public class User extends AuditableAbstractAggregateRoot<User>{
 
     /**
      * Get the user's email address.
+     * 
      * @return User's email address
      */
     public String getEmail() {
@@ -100,6 +98,7 @@ public class User extends AuditableAbstractAggregateRoot<User>{
 
     /**
      * Get the user's password.
+     * 
      * @return User's password
      */
     public String getPassword() {
@@ -108,22 +107,24 @@ public class User extends AuditableAbstractAggregateRoot<User>{
 
     /**
      * Get the names of roles assigned to the user.
+     * 
      * @return Set of role names
      */
     public Set<String> getRoleNames() {
         return this.roles.stream()
-            .map(Role::getStringName)
-            .collect(Collectors.toSet());
+                .map(Role::getStringName)
+                .collect(Collectors.toSet());
     }
 
     /**
      * Check if the user has a specific role.
+     * 
      * @param roleName Name of the role to check
      * @return true if the user has the role, false otherwise
      */
     public boolean hasRole(String roleName) {
         return this.roles.stream()
-            .anyMatch(role -> role.getStringName().equals(roleName));
+                .anyMatch(role -> role.getStringName().equals(roleName));
     }
 
     /**
@@ -139,9 +140,21 @@ public class User extends AuditableAbstractAggregateRoot<User>{
     }
 
     /**
+     * Get roles as a set of strings.
+     * 
+     * @return Set of role names as strings
+     */
+    public Set<String> getRolesAsStringSet() {
+        return this.roles.stream()
+                .map(role -> role.getName().name())
+                .collect(Collectors.toSet());
+    }
+
+    /**
      * Factory method to create a User from a SignUpCommand and a Role.
+     * 
      * @param command SignUpCommand containing user details
-     * @param role Role to be assigned to the new user
+     * @param role    Role to be assigned to the new user
      * @return Newly created User instance
      */
     public static User create(SignUpCommand command, Role role) {
