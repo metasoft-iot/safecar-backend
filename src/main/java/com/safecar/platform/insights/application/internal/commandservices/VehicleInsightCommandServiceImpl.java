@@ -20,6 +20,8 @@ public class VehicleInsightCommandServiceImpl implements VehicleInsightCommandSe
     private final VehicleInsightRepository repository;
     private final TelemetryAnalyticsGateway analyticsGateway;
     private final com.safecar.platform.workshop.interfaces.acl.WorkshopContextFacade workshopContextFacade;
+    private final com.safecar.platform.devices.interfaces.acl.DevicesContextFacade devicesContextFacade;
+    private final com.safecar.platform.profiles.interfaces.acl.ProfilesContextFacade profilesContextFacade;
 
     @Override
     @Transactional
@@ -28,11 +30,29 @@ public class VehicleInsightCommandServiceImpl implements VehicleInsightCommandSe
                 .orElseThrow(
                         () -> new IllegalArgumentException("Telemetry not found for ID: " + command.telemetryId()));
 
+        // Get real vehicle data
+        var vehicleId = sample.vehicleId().vehicleId();
+        var driverId = sample.driverId().driverId();
+        
+        // Fetch license plate from vehicles
+        var licensePlate = devicesContextFacade.fetchVehicleLicensePlate(vehicleId);
+        if (licensePlate == null || licensePlate.isBlank()) {
+            licensePlate = "VEH-" + vehicleId; // Fallback to placeholder
+            LOGGER.warn("License plate not found for vehicle {}, using placeholder", vehicleId);
+        }
+        
+        // For driver name, we use a placeholder as we don't have direct access to profile data from driver ID
+        // The driver entity has profileId, but we'd need an additional query
+        // This is acceptable as the driver name is for display purposes only in insights
+        String driverName = "Driver " + driverId;
+        
+        LOGGER.debug("Generating insight for vehicle {} ({}), driver {}", vehicleId, licensePlate, driverName);
+
         var vehicle = new com.safecar.platform.insights.domain.model.valueobjects.VehicleReference(
-                sample.driverId().driverId(),
-                "Driver " + sample.driverId().driverId(), // Placeholder as we don't have name
-                sample.vehicleId().vehicleId(),
-                "VEH-" + sample.vehicleId().vehicleId() // Placeholder
+                driverId,
+                driverName,
+                vehicleId,
+                licensePlate
         );
 
         var payload = new com.safecar.platform.insights.domain.model.valueobjects.TelemetrySensorPayload(

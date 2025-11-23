@@ -1,6 +1,7 @@
 package com.safecar.platform.workshop.interfaces.rest;
 
 import com.safecar.platform.workshop.domain.model.queries.GetWorkshopByIdQuery;
+import com.safecar.platform.workshop.domain.model.queries.GetAllWorkshopsQuery;
 import com.safecar.platform.workshop.domain.services.WorkshopCommandService;
 import com.safecar.platform.workshop.domain.services.WorkshopQueryService;
 import com.safecar.platform.workshop.domain.services.MechanicQueryService;
@@ -44,6 +45,25 @@ public class WorkshopsController {
         this.workshopCommandService = workshopCommandService;
         this.workshopQueryService = workshopQueryService;
         this.mechanicQueryService = mechanicQueryService;
+    }
+
+    /**
+     * Gets all workshops.
+     *
+     * @return the list of {@link WorkshopResource} resources
+     */
+    @Operation(summary = "Get all workshops")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Workshops found")
+    })
+    @GetMapping
+    public ResponseEntity<java.util.List<WorkshopResource>> getAllWorkshops() {
+        var query = new GetAllWorkshopsQuery();
+        var workshops = workshopQueryService.handle(query);
+        
+        return ResponseEntity.ok(workshops.stream()
+                .map(WorkshopEntityResourceFromEntityAssembler::toResourceFromEntity)
+                .toList());
     }
 
     /**

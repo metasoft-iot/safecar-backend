@@ -118,6 +118,8 @@ public class WebSecurityConfiguration {
         String[] publicMatchers = {
                 "/api/v1/authentication/**",
                 "/api/v1/profiles/**",
+                "/api/v1/person-profiles/**", // Allow public access for profile creation during sign-up
+                "/api/v1/workshops/**", // Allow public access to view workshops
                 "/v3/api-docs/**",
                 "/swagger-ui.html",
                 "/swagger-ui/**",

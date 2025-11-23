@@ -43,6 +43,25 @@ public class PersonProfilesController {
         this.queryService = personProfileQueryService;
     }
 
+    @GetMapping("/{id}")
+    @Operation(summary = "Get a person profile by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Profile found"),
+            @ApiResponse(responseCode = "404", description = "Profile not found") })
+    public ResponseEntity<PersonProfileResource> getProfileById(@PathVariable Long id) {
+
+        var getProfileByIdQuery = new com.safecar.platform.profiles.domain.model.queries.GetPersonProfileByIdQuery(id);
+        var profile = queryService.handle(getProfileByIdQuery);
+
+        if (profile.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        var profileEntity = profile.get();
+
+        var profileResource = PersonProfileResourceFromEntityAssembler.toResourceFromEntity(profileEntity);
+        return ResponseEntity.ok(profileResource);
+    }
+
     @GetMapping
     @Operation(summary = "Get a person profile by user email")
     @ApiResponses(value = {

@@ -1,5 +1,7 @@
 package com.safecar.platform.devices.application.internal.eventhandlers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -19,6 +21,8 @@ import com.safecar.platform.shared.domain.model.events.ProfileCreatedEvent;
 @Component
 public class DeviceProfileCreatedEventHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(DeviceProfileCreatedEventHandler.class);
+    
     private final DriverCommandService commandService;
 
     /**
@@ -39,13 +43,32 @@ public class DeviceProfileCreatedEventHandler {
     @Async
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void on(ProfileCreatedEvent event) {
+        logger.info("ProfileCreatedEvent received for profileId: {} with roles: {}", 
+                    event.profileId(), event.userRoles());
+        
         var isDriver = event.userRoles().contains("ROLE_DRIVER");
 
         if (isDriver) {
-            var command = new CreateDriverCommand(
-                    event.profileId());
-
-            commandService.handle(command);
+            try {
+                logger.info("Creating driver for profileId: {}", event.profileId());
+                
+                var command = new CreateDriverCommand(event.profileId());
+                var result = commandService.handle(command);
+                
+                if (result.isPresent()) {
+                    logger.info("Driver created successfully with ID: {} for profileId: {}", 
+                               result.get().getId(), event.profileId());
+                } else {
+                    logger.error("Failed to create driver for profileId: {} - command returned empty", 
+                                event.profileId());
+                }
+            } catch (Exception e) {
+                logger.error("Exception while creating driver for profileId: {}", 
+                            event.profileId(), e);
+            }
+        } else {
+            logger.debug("User does not have ROLE_DRIVER, skipping driver creation for profileId: {}", 
+                        event.profileId());
         }
     }
 }

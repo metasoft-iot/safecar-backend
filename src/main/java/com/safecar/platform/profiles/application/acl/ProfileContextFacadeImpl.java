@@ -106,4 +106,12 @@ public class ProfileContextFacadeImpl implements ProfilesContextFacade {
         var business = businessProfileQueryService.handle(getProfileByIdQuery);
         return business.map(bp -> bp.getContactPhone()).orElse(null);
     }
+
+    // inherited javadoc
+    @Override
+    public String getPersonFullNameByProfileId(Long profileId) {
+        var getProfileByIdQuery = new GetPersonProfileByIdQuery(profileId);
+        var person = personProfileQueryService.handle(getProfileByIdQuery);
+        return person.map(pp -> pp.getFullName()).orElse("Unknown Driver");
+    }
 }

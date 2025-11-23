@@ -2,10 +2,12 @@ package com.safecar.platform.workshop.application.internal.queryservices;
 
 import com.safecar.platform.workshop.domain.model.aggregates.Workshop;
 import com.safecar.platform.workshop.domain.model.queries.GetWorkshopByIdQuery;
+import com.safecar.platform.workshop.domain.model.queries.GetAllWorkshopsQuery;
 import com.safecar.platform.workshop.domain.services.WorkshopQueryService;
 import com.safecar.platform.workshop.infrastructure.persistence.jpa.repositories.WorkshopRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,5 +38,16 @@ public class WorkshopQueryServiceImpl implements WorkshopQueryService {
             com.safecar.platform.workshop.domain.model.queries.GetWorkshopByBusinessProfileIdQuery query) {
         return workshopRepository.findByBusinessProfileId(
                 new com.safecar.platform.shared.domain.model.valueobjects.ProfileId(query.businessProfileId()));
+    }
+    
+    /**
+     * Handle the retrieval of all Workshops.
+     * 
+     * @param query the {@link GetAllWorkshopsQuery} instance
+     * @return a {@link List} of {@link Workshop}
+     */
+    @Override
+    public List<Workshop> handle(GetAllWorkshopsQuery query) {
+        return workshopRepository.findAll();
     }
 }

@@ -2,7 +2,9 @@ package com.safecar.platform.workshop.domain.services;
 
 import com.safecar.platform.workshop.domain.model.aggregates.Workshop;
 import com.safecar.platform.workshop.domain.model.queries.GetWorkshopByIdQuery;
+import com.safecar.platform.workshop.domain.model.queries.GetAllWorkshopsQuery;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,4 +30,12 @@ public interface WorkshopQueryService {
      */
     Optional<Workshop> handle(
             com.safecar.platform.workshop.domain.model.queries.GetWorkshopByBusinessProfileIdQuery query);
+    
+    /**
+     * Handle the retrieval of all Workshops.
+     * 
+     * @param query the {@link GetAllWorkshopsQuery} instance
+     * @return a {@link List} of {@link Workshop}
+     */
+    List<Workshop> handle(GetAllWorkshopsQuery query);
 }

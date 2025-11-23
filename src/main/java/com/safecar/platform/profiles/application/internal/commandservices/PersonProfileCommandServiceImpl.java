@@ -12,6 +12,8 @@ import com.safecar.platform.shared.domain.model.events.ProfileCreatedEvent;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PersonProfileCommandServiceImpl implements PersonProfileCommandService {
 
+    private static final Logger logger = LoggerFactory.getLogger(PersonProfileCommandServiceImpl.class);
+    
     /**
      * The PersonProfile repository
      */
@@ -49,7 +53,10 @@ public class PersonProfileCommandServiceImpl implements PersonProfileCommandServ
     @Override
     public Optional<PersonProfile> handle(CreatePersonProfileCommand command, String userEmail) {
 
+        logger.info("Creating PersonProfile for user: {}", userEmail);
+        
         var userRoles = externalIamService.fetchUserRolesByUserEmail(userEmail);
+        logger.info("Fetched roles for user {}: {}", userEmail, userRoles);
 
         var profile = new PersonProfile(
                 userEmail,
@@ -60,11 +67,14 @@ public class PersonProfileCommandServiceImpl implements PersonProfileCommandServ
                 new Dni(command.dni()));
 
         var saved = personProfileRepository.save(profile);
+        logger.info("PersonProfile saved with ID: {} for user: {}", saved.getId(), userEmail);
 
         var event = new ProfileCreatedEvent(
                 saved.getId(),
                 userRoles);
 
+        logger.info("Publishing ProfileCreatedEvent for profileId: {} with roles: {}", 
+                   saved.getId(), userRoles);
         applicationEventPublisher.publishEvent(event);
 
         return Optional.of(saved);

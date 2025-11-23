@@ -131,14 +131,19 @@ public class GeminiTelemetryAnalyticsGateway implements TelemetryAnalyticsGatewa
 
         private String buildPayload(TelemetrySensorPayload sensor) {
                 var payload = new LinkedHashMap<String, Object>();
-                payload.put("gas_level", sensor.gasLevel());
-                payload.put("engine_temp", sensor.engineTemperature());
-                payload.put("ambient_temp", sensor.ambientTemperature());
-                payload.put("humidity", sensor.humidity());
-                payload.put("current_amps", sensor.currentAmps());
-                payload.put("location", Map.of(
-                                "lat", sensor.latitude(),
-                                "lng", sensor.longitude()));
+                
+                // Add sensor data, handling null values
+                payload.put("gas_level", sensor.gasLevel() != null ? sensor.gasLevel() : "N/A");
+                payload.put("engine_temp", sensor.engineTemperature() != null ? sensor.engineTemperature() : "N/A");
+                payload.put("ambient_temp", sensor.ambientTemperature() != null ? sensor.ambientTemperature() : "N/A");
+                payload.put("humidity", sensor.humidity() != null ? sensor.humidity() : "N/A");
+                payload.put("current_amps", sensor.currentAmps() != null ? sensor.currentAmps() : "N/A");
+                
+                // Build location map handling null values
+                var location = new LinkedHashMap<String, Object>();
+                location.put("lat", sensor.latitude() != null ? sensor.latitude() : "N/A");
+                location.put("lng", sensor.longitude() != null ? sensor.longitude() : "N/A");
+                payload.put("location", location);
 
                 try {
                         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(payload);

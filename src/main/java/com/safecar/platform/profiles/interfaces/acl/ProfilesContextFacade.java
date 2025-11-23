@@ -80,4 +80,12 @@ public interface ProfilesContextFacade {
          * @return the contact phone if found, null if not found
          */
         String getBusinessContactPhoneByProfileId(Long profileId);
+
+        /**
+         * Retrieves the full name for a given person profile ID.
+         *
+         * @param profileId the person profile ID
+         * @return the full name if found, "Unknown" if not found
+         */
+        String getPersonFullNameByProfileId(Long profileId);
 }
