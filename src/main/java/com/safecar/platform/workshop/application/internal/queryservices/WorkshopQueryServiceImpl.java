@@ -30,4 +30,11 @@ public class WorkshopQueryServiceImpl implements WorkshopQueryService {
     public Optional<Workshop> handle(GetWorkshopByIdQuery query) {
         return workshopRepository.findById(query.workshopId());
     }
+
+    @Override
+    public Optional<Workshop> handle(
+            com.safecar.platform.workshop.domain.model.queries.GetWorkshopByBusinessProfileIdQuery query) {
+        return workshopRepository.findByBusinessProfileId(
+                new com.safecar.platform.shared.domain.model.valueobjects.ProfileId(query.businessProfileId()));
+    }
 }

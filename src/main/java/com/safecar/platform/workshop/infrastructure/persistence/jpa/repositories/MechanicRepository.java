@@ -27,4 +27,12 @@ public interface MechanicRepository extends JpaRepository<Mechanic, Long> {
      */
     boolean existsByProfileId_ProfileId(Long profileId);
 
+    /**
+     * Finds Mechanics by their associated workshop ID.
+     * 
+     * @param workshopId the workshop ID to search for
+     * @return a List of found Mechanics
+     */
+    java.util.List<Mechanic> findByWorkshopId(Long workshopId);
+
 }

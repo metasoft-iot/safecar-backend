@@ -20,4 +20,13 @@ public interface MechanicQueryService {
      * @return an Optional containing the found Mechanic, or empty if not found
      */
     Optional<Mechanic> handle(GetMechanicByProfileIdQuery query);
+
+    /**
+     * Handles the query to get mechanics by workshop ID.
+     * 
+     * @param query the query containing the workshop ID
+     * @return a List of found Mechanics
+     */
+    java.util.List<Mechanic> handle(
+            com.safecar.platform.workshop.domain.model.queries.GetMechanicsByWorkshopIdQuery query);
 }

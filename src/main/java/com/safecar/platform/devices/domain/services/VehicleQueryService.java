@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.safecar.platform.devices.domain.model.aggregates.Vehicle;
 import com.safecar.platform.devices.domain.model.queries.GetVehicleByDriverIdQuery;
 import com.safecar.platform.devices.domain.model.queries.GetVehicleByIdQuery;
+import com.safecar.platform.devices.domain.model.queries.GetVehiclesByWorkshopIdQuery;
 
 /**
  * Vehicle Query Service
@@ -29,4 +30,12 @@ public interface VehicleQueryService {
      * @return An Optional containing the vehicle if found, or empty if not found.
      */
     Optional<Vehicle> handle(GetVehicleByIdQuery query);
+
+    /**
+     * Handles the GetVehiclesByWorkshopIdQuery to retrieve vehicles by workshop ID.
+     * 
+     * @param query The query containing the workshop ID.
+     * @return A list of vehicles associated with the specified workshop ID.
+     */
+    List<Vehicle> handle(GetVehiclesByWorkshopIdQuery query);
 }

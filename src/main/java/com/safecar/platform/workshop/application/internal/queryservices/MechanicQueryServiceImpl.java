@@ -20,4 +20,10 @@ public class MechanicQueryServiceImpl implements MechanicQueryService {
     public Optional<Mechanic> handle(GetMechanicByProfileIdQuery query) {
         return mechanicRepository.findByProfileId_ProfileId(query.profileId());
     }
+
+    @Override
+    public java.util.List<Mechanic> handle(
+            com.safecar.platform.workshop.domain.model.queries.GetMechanicsByWorkshopIdQuery query) {
+        return mechanicRepository.findByWorkshopId(query.workshopId());
+    }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 import com.safecar.platform.devices.domain.model.aggregates.Vehicle;
 import com.safecar.platform.devices.domain.model.queries.GetVehicleByDriverIdQuery;
 import com.safecar.platform.devices.domain.model.queries.GetVehicleByIdQuery;
+import com.safecar.platform.devices.domain.model.queries.GetVehiclesByWorkshopIdQuery;
 import com.safecar.platform.devices.domain.services.VehicleCommandService;
 import com.safecar.platform.devices.domain.services.VehicleQueryService;
 import com.safecar.platform.devices.interfaces.rest.resources.CreateVehicleResource;
@@ -128,6 +129,31 @@ public class VehiclesController {
 
                 if (vehicles == null || vehicles.isEmpty())
                         return ResponseEntity.notFound().build();
+
+                var vehicleResources = vehicles.stream()
+                                .map(VehicleResourceFromEntityAssembler::toResourceFromEntity)
+                                .toList();
+
+                return ResponseEntity.ok(vehicleResources);
+        }
+
+        /**
+         * Retrieves all vehicles associated with a specific workshop.
+         *
+         * @param workshopId the unique identifier of the workshop
+         * @return list of vehicles that have appointments at the workshop
+         */
+        @Operation(summary = "Get vehicles by workshop ID", description = "Retrieves all vehicles that have appointments at a specific workshop.")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Vehicles retrieved successfully (may be empty list)", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = VehicleResource.class))),
+                        @ApiResponse(responseCode = "400", description = "Invalid workshop ID format", content = @Content)
+        })
+        @GetMapping(value = "/workshops/{workshopId}/vehicles")
+        public ResponseEntity<List<VehicleResource>> getVehiclesByWorkshopId(
+                        @Parameter @PathVariable Long workshopId) {
+
+                var query = new GetVehiclesByWorkshopIdQuery(workshopId);
+                var vehicles = vehicleQueryService.handle(query);
 
                 var vehicleResources = vehicles.stream()
                                 .map(VehicleResourceFromEntityAssembler::toResourceFromEntity)

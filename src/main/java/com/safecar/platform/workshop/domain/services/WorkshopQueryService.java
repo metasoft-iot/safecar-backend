@@ -17,4 +17,15 @@ public interface WorkshopQueryService {
      * @return an {@link Optional} of {@link Workshop} if found
      */
     Optional<Workshop> handle(GetWorkshopByIdQuery query);
+
+    /**
+     * Handle the retrieval of a Workshop by its business profile ID.
+     * 
+     * @param query the
+     *              {@link com.safecar.platform.workshop.domain.model.queries.GetWorkshopByBusinessProfileIdQuery}
+     *              instance
+     * @return an {@link Optional} of {@link Workshop} if found
+     */
+    Optional<Workshop> handle(
+            com.safecar.platform.workshop.domain.model.queries.GetWorkshopByBusinessProfileIdQuery query);
 }
