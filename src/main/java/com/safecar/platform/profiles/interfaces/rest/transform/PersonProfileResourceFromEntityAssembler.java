@@ -19,6 +19,7 @@ public class PersonProfileResourceFromEntityAssembler {
     public static PersonProfileResource toResourceFromEntity(PersonProfile p) {
         return new PersonProfileResource(
                 p.getId(),
+                p.getUserEmail(),
                 p.getFullName(),
                 p.getCity(),
                 p.getCountry(),

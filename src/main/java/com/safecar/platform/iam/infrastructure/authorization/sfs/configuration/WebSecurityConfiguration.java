@@ -119,7 +119,13 @@ public class WebSecurityConfiguration {
                 "/api/v1/authentication/**",
                 "/api/v1/profiles/**",
                 "/api/v1/person-profiles/**", // Allow public access for profile creation during sign-up
+                "/api/v1/drivers/**", // Allow public access to driver data
                 "/api/v1/workshops/**", // Allow public access to view workshops
+                "/api/v1/vehicles/**", // Allow public access to vehicle data
+                "/api/v1/appointments/**", // Allow public access to appointments
+                "/api/v1/telemetry/**", // Allow public access to telemetry data
+                "/api/v1/insights/**", // Allow public access to insights
+                "/error", // Allow access to error page
                 "/v3/api-docs/**",
                 "/swagger-ui.html",
                 "/swagger-ui/**",

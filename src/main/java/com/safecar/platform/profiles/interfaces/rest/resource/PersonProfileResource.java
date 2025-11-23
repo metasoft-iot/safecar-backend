@@ -9,6 +9,7 @@ import java.util.Set;
  * </p>
  * 
  * @param profileId         Unique identifier for the profile.
+ * @param userEmail         Email of the user associated with this profile.
  * @param fullName          Full name of the person.
  * @param city              City where the person resides.
  * @param country           Country where the person resides.
@@ -21,6 +22,7 @@ import java.util.Set;
  */
 public record PersonProfileResource(
                 Long profileId,
+                String userEmail,
                 String fullName,
                 String city,
                 String country,

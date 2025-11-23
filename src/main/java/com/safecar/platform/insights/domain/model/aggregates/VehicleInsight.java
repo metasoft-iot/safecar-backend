@@ -24,7 +24,7 @@ public class VehicleInsight extends AuditableAbstractAggregateRoot<VehicleInsigh
     @Embedded
     private DrivingHabitSummary drivingHabits;
 
-    @Column(name = "risk_level", length = 40)
+    @Column(name = "risk_level", columnDefinition = "TEXT")
     private String riskLevel;
 
     @Column(name = "llm_response_id", length = 80)

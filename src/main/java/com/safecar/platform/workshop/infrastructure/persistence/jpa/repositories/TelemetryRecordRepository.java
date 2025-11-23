@@ -13,6 +13,7 @@ import java.util.List;
 public interface TelemetryRecordRepository extends JpaRepository<TelemetryRecord, Long> {
     List<TelemetryRecord> findBySampleVehicleIdAndIngestedAtBetween(VehicleId vehicleId, Instant from, Instant to);
     List<TelemetryRecord> findBySampleSeverityAndIngestedAtBetween(com.safecar.platform.workshop.domain.model.valueobjects.AlertSeverity severity, Instant from, Instant to);
+    List<TelemetryRecord> findBySampleVehicleIdOrderByIngestedAtDesc(VehicleId vehicleId);
 
     long countByTelemetryAggregateId(Long telemetryAggregateId);
 

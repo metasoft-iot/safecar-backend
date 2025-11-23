@@ -9,13 +9,13 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public record MaintenancePrediction(
 
-        @Column(name = "maintenance_risk_level", length = 40)
+        @Column(name = "maintenance_risk_level", columnDefinition = "TEXT")
         String riskLevel,
 
         @Column(name = "maintenance_summary", columnDefinition = "TEXT")
         String summary,
 
-        @Column(name = "maintenance_window", length = 120)
+        @Column(name = "maintenance_window", columnDefinition = "TEXT")
         String recommendedWindow
 ) {
 }
