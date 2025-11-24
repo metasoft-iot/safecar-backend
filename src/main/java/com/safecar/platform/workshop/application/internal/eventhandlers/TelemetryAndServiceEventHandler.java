@@ -1,6 +1,5 @@
 package com.safecar.platform.workshop.application.internal.eventhandlers;
 
-import java.sql.Timestamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
@@ -157,14 +156,5 @@ public class TelemetryAndServiceEventHandler {
 
     private boolean isToxicGas(com.safecar.platform.workshop.domain.model.valueobjects.CabinGasLevel cabinGasLevel) {
         return cabinGasLevel.concentrationPpm().compareTo(java.math.BigDecimal.valueOf(800)) > 0;
-    }
-
-    /**
-     * Get the current timestamp.
-     *
-     * @return the current timestamp.
-     */
-    private Timestamp currentTimestamp() {
-        return new Timestamp(System.currentTimeMillis());
     }
 }

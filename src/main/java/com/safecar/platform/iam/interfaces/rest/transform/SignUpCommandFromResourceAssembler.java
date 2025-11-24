@@ -22,7 +22,6 @@ public class SignUpCommandFromResourceAssembler {
      */
     public static SignUpCommand toCommandFromResource(SignUpResource resource) {
         var roles = RoleListFromStringAssembler.toRoleListFromStringList(resource.roles());
-        System.out.println("roles: " + roles);
         return new SignUpCommand(resource.email(), resource.password(), resource.confirmPassword(), roles);
     }
 }
