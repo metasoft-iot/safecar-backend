@@ -42,11 +42,11 @@ services:
     restart: unless-stopped
     networks:
       - default
-      - proxy_net
+      - laravel_net
 
 volumes:
   db-data:
 
 networks:
-  proxy_net:
+  laravel_net:
     external: true
