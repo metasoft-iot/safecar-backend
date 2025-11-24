@@ -1,19 +1,28 @@
+# syntax=docker/dockerfile:1
+
 # Build stage
-FROM eclipse-temurin:25-jdk AS build
-WORKDIR /app
+FROM maven:3.9.9-eclipse-temurin-25 AS builder
+WORKDIR /workspace
 
+# Only copy what is needed for the build
 COPY pom.xml .
-RUN apt-get update && apt-get install -y maven
-RUN mvn dependency:go-offline -B
+COPY src ./src
 
-COPY . .
-RUN mvn clean package -DskipTests
+# Produce the runnable JAR (tests skipped for faster image builds)
+RUN mvn -B -DskipTests clean package
+
 
 # Runtime stage
-FROM eclipse-temurin:25-jre
+FROM eclipse-temurin:25-jre AS runtime
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar app.jar
+# Non-root user for better security
+RUN addgroup --system spring && adduser --system --ingroup spring spring
+
+# Copy the built artifact
+COPY --from=builder /workspace/target/backend-*.jar /app/app.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+USER spring
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

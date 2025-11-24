@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: safecar-db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: safecar-db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme}
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_USER: ${MYSQL_ROOT_USER:-root}
+      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme}
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: safecar-backend:latest
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/safecar-db?allowPublicKeyRetrieval=true&useSSL=false&sslMode=DISABLED&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_ROOT_USER:-root}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme}
+      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER:-root}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:?set STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:?set STRIPE_WEBHOOK_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:8081}
+    ports: [] # Nginx hará el proxy; expuesto solo por red
+    restart: unless-stopped
+    networks:
+      - default
+      - proxy_net
+
+volumes:
+  db-data:
+
+networks:
+  proxy_net:
+    external: true
