@@ -1,8 +1,12 @@
 # syntax=docker/dockerfile:1
 
-# Build stage
-FROM maven:3.9.9-eclipse-temurin-25 AS builder
+# Build stage (Java 25). No official Maven image with Temurin 25 yet, so install Maven manually.
+FROM eclipse-temurin:25-jdk AS builder
 WORKDIR /workspace
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends maven \
+ && rm -rf /var/lib/apt/lists/*
 
 # Only copy what is needed for the build
 COPY pom.xml .
