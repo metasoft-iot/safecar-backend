@@ -11,6 +11,7 @@ public class BusinessProfileResourceFromEntityAssembler {
                 entity.getRuc(),
                 entity.getBusinessAddress(),
                 entity.getContactPhone(),
-                entity.getContactEmail());
+                entity.getContactEmail(),
+                entity.getDescription());
     }
 }

@@ -17,6 +17,7 @@ import com.safecar.platform.workshop.interfaces.rest.resources.MechanicResource;
 import com.safecar.platform.workshop.interfaces.rest.resources.UpdateMechanicMetricsResource;
 import com.safecar.platform.workshop.interfaces.rest.transform.MechanicResourceFromEntityAssembler;
 import com.safecar.platform.workshop.interfaces.rest.transform.UpdateMechanicMetricsCommandFromResourceAssembler;
+import com.safecar.platform.profiles.interfaces.acl.ProfilesContextFacade;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,10 +41,15 @@ public class MechanicsController {
 
     private final MechanicCommandService commandService;
     private final MechanicQueryService queryService;
+    private final ProfilesContextFacade profilesContextFacade; // Changed type and name
 
-    public MechanicsController(MechanicCommandService commandService, MechanicQueryService queryService) {
+    public MechanicsController(
+            MechanicCommandService commandService,
+            MechanicQueryService queryService,
+            ProfilesContextFacade profilesContextFacade) { // Changed type and name
         this.commandService = commandService;
         this.queryService = queryService;
+        this.profilesContextFacade = profilesContextFacade; // Changed assignment
     }
 
     @Operation(summary = "Get mechanic by profile ID")
@@ -59,7 +65,8 @@ public class MechanicsController {
         if (mechanic.isEmpty())
             return ResponseEntity.notFound().build();
 
-        var mechanicResource = MechanicResourceFromEntityAssembler.toResourceFromEntity(mechanic.get());
+        var fullName = getFullNameForMechanic(mechanic.get().getProfileId());
+        var mechanicResource = MechanicResourceFromEntityAssembler.toResourceFromEntity(mechanic.get(), fullName);
         return ResponseEntity.ok(mechanicResource);
     }
 
@@ -76,13 +83,13 @@ public class MechanicsController {
             return ResponseEntity.notFound().build();
 
         var mechanic = result.get();
-        var mechanicResource = MechanicResourceFromEntityAssembler.toResourceFromEntity(mechanic);
+        var fullName = getFullNameForMechanic(mechanic.getProfileId());
+        var mechanicResource = MechanicResourceFromEntityAssembler.toResourceFromEntity(mechanic, fullName);
 
         return ResponseEntity.ok(mechanicResource);
     }
 
-    @Operation(summary = "Assign mechanic to workshop", 
-               description = "Assigns a mechanic to a specific workshop. A mechanic can only belong to one workshop.")
+    @Operation(summary = "Assign mechanic to workshop", description = "Assigns a mechanic to a specific workshop. A mechanic can only belong to one workshop.")
     @PatchMapping("/{mechanicId}/workshop")
     public ResponseEntity<MechanicResource> assignMechanicToWorkshop(
             @PathVariable Long mechanicId,
@@ -95,8 +102,33 @@ public class MechanicsController {
             return ResponseEntity.notFound().build();
 
         var mechanic = result.get();
-        var mechanicResource = MechanicResourceFromEntityAssembler.toResourceFromEntity(mechanic);
+        var fullName = getFullNameForMechanic(mechanic.getProfileId());
+        var mechanicResource = MechanicResourceFromEntityAssembler.toResourceFromEntity(mechanic, fullName);
 
         return ResponseEntity.ok(mechanicResource);
+    }
+
+    @Operation(summary = "Get mechanics by workshop ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Mechanics found"),
+            @ApiResponse(responseCode = "404", description = "Workshop not found")
+    })
+    @GetMapping("/workshop/{workshopId}")
+    public ResponseEntity<java.util.List<MechanicResource>> getMechanicsByWorkshopId(@PathVariable Long workshopId) {
+        var query = new com.safecar.platform.workshop.domain.model.queries.GetMechanicsByWorkshopIdQuery(workshopId);
+        var mechanics = queryService.handle(query);
+
+        var mechanicResources = mechanics.stream()
+                .map(mechanic -> {
+                    var fullName = getFullNameForMechanic(mechanic.getProfileId());
+                    return MechanicResourceFromEntityAssembler.toResourceFromEntity(mechanic, fullName);
+                })
+                .toList();
+
+        return ResponseEntity.ok(mechanicResources);
+    }
+
+    private String getFullNameForMechanic(Long profileId) {
+        return profilesContextFacade.getPersonFullNameByProfileId(profileId);
     }
 }

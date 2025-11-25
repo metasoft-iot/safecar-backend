@@ -14,10 +14,12 @@ public class WorkshopEntityResourceFromEntityAssembler {
      * @param entity the {@link Workshop} entity
      * @return the {@link WorkshopEntityResource} resource
      */
-    public static WorkshopResource toResourceFromEntity(Workshop entity) {
+    public static WorkshopResource toResourceFromEntity(Workshop entity, String businessName, String businessAddress) {
         return new WorkshopResource(
                 entity.getId(),
                 entity.getBusinessProfileId(),
+                businessName,
+                businessAddress,
                 entity.getWorkshopDescription(),
                 entity.getTotalMechanics());
     }

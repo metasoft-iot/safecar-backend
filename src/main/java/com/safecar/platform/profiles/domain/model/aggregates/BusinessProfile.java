@@ -57,6 +57,11 @@ public class BusinessProfile extends AuditableAbstractAggregateRoot<BusinessProf
     private String contactEmail;
 
     /**
+     * Description of the business
+     */
+    private String description;
+
+    /**
      * Default constructor for JPA
      */
     protected BusinessProfile() {
@@ -75,6 +80,7 @@ public class BusinessProfile extends AuditableAbstractAggregateRoot<BusinessProf
         this.businessAddress = command.businessAddress();
         this.contactPhone = command.contactPhone();
         this.contactEmail = command.contactEmail();
+        this.description = command.description();
     }
 
     /**
@@ -82,19 +88,21 @@ public class BusinessProfile extends AuditableAbstractAggregateRoot<BusinessProf
      * 
      * @param userEmail       the user email
      * @param businessName    the business name
-     * @param taxId           the tax identification number
+     * @param ruc             the tax identification number
      * @param businessAddress the business address
      * @param contactPhone    the contact phone number
      * @param contactEmail    the contact email
+     * @param description     the business description
      */
     public BusinessProfile(String userEmail, String businessName, String ruc,
-            String businessAddress, String contactPhone, String contactEmail) {
+            String businessAddress, String contactPhone, String contactEmail, String description) {
         this.userEmail = userEmail;
         this.businessName = businessName;
         this.ruc = ruc;
         this.businessAddress = businessAddress;
         this.contactPhone = contactPhone;
         this.contactEmail = contactEmail;
+        this.description = description;
     }
 
     /**
@@ -105,17 +113,20 @@ public class BusinessProfile extends AuditableAbstractAggregateRoot<BusinessProf
      * @param businessAddress the new business address
      * @param contactPhone    the new contact phone number
      * @param contactEmail    the new contact email
+     * @param description     the new business description
      */
     public void updateBusinessProfileMetrics(
             String businessName,
             String ruc,
             String businessAddress,
             String contactPhone,
-            String contactEmail) {
+            String contactEmail,
+            String description) {
         this.businessName = businessName;
         this.ruc = ruc;
         this.businessAddress = businessAddress;
         this.contactPhone = contactPhone;
         this.contactEmail = contactEmail;
+        this.description = description;
     }
 }

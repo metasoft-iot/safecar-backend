@@ -30,4 +30,13 @@ public interface AppointmentQueryService {
      * @return a list of WorkshopAppointments
      */
     List<Appointment> handle(GetAppointmentsByWorkshopAndRangeQuery query);
+
+    /**
+     * Handles retrieving appointments by driver ID.
+     * 
+     * @param query The {@link GetAppointmentsByDriverIdQuery} query containing
+     *              driver ID
+     * @return a list of Appointments
+     */
+    List<Appointment> handle(GetAppointmentsByDriverIdQuery query);
 }

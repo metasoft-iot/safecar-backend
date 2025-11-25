@@ -15,6 +15,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * Mechanic Command Service Implementation
  * <p>
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
  * </p>
  */
 @Service
+@Transactional
 public class MechanicCommandServiceImpl implements MechanicCommandService {
 
     private final MechanicRepository mechanicRepository;
@@ -41,20 +44,20 @@ public class MechanicCommandServiceImpl implements MechanicCommandService {
     @Override
     public Optional<Mechanic> handle(CreateMechanicCommand command) {
         var mechanic = Mechanic.create(command);
-        
+
         // If no specializations provided, add default ENGINE specialization from DB
         if (mechanic.getSpecializations().isEmpty()) {
             var defaultSpec = specializationRepository.findByName(
-                com.safecar.platform.workshop.domain.model.valueobjects.Specializations.ENGINE)
-                .orElseGet(() -> {
-                    // Create and save ENGINE if it doesn't exist (safety fallback)
-                    var newSpec = new Specialization(
-                        com.safecar.platform.workshop.domain.model.valueobjects.Specializations.ENGINE);
-                    return specializationRepository.save(newSpec);
-                });
+                    com.safecar.platform.workshop.domain.model.valueobjects.Specializations.ENGINE)
+                    .orElseGet(() -> {
+                        // Create and save ENGINE if it doesn't exist (safety fallback)
+                        var newSpec = new Specialization(
+                                com.safecar.platform.workshop.domain.model.valueobjects.Specializations.ENGINE);
+                        return specializationRepository.save(newSpec);
+                    });
             mechanic.addSpecializations(Set.of(defaultSpec));
         }
-        
+
         var saved = mechanicRepository.save(mechanic);
         return Optional.of(saved);
     }
@@ -90,11 +93,13 @@ public class MechanicCommandServiceImpl implements MechanicCommandService {
     public Optional<Mechanic> handle(AssignMechanicToWorkshopCommand command) {
         // Validate workshop exists
         var workshop = workshopRepository.findById(command.workshopId())
-                .orElseThrow(() -> new IllegalArgumentException("Workshop with ID " + command.workshopId() + " does not exist"));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Workshop with ID " + command.workshopId() + " does not exist"));
 
         // Validate mechanic exists
         var mechanic = mechanicRepository.findById(command.mechanicId())
-                .orElseThrow(() -> new IllegalArgumentException("Mechanic with ID " + command.mechanicId() + " does not exist"));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Mechanic with ID " + command.mechanicId() + " does not exist"));
 
         // Store previous workshop ID to decrement counter if reassigning
         var previousWorkshopId = mechanic.getWorkshopIdValue();
@@ -112,7 +117,8 @@ public class MechanicCommandServiceImpl implements MechanicCommandService {
             });
         }
 
-        // Increment counter only if this is a new assignment (not already assigned to this workshop)
+        // Increment counter only if this is a new assignment (not already assigned to
+        // this workshop)
         if (previousWorkshopId == null || !previousWorkshopId.equals(command.workshopId())) {
             workshop.incrementMechanicsCount();
             workshopRepository.save(workshop);

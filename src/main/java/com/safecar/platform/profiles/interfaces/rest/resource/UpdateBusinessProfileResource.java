@@ -14,9 +14,10 @@ package com.safecar.platform.profiles.interfaces.rest.resource;
  * @param contactEmail    - The contact email of the business
  */
 public record UpdateBusinessProfileResource(
-        String businessName,
-        String ruc,
-        String businessAddress,
-        String contactPhone,
-        String contactEmail) {
+                String businessName,
+                String ruc,
+                String businessAddress,
+                String contactPhone,
+                String contactEmail,
+                String description) {
 }

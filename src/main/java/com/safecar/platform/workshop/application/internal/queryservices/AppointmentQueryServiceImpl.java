@@ -12,8 +12,10 @@ import com.safecar.platform.workshop.domain.services.AppointmentQueryService;
 import com.safecar.platform.workshop.infrastructure.persistence.jpa.repositories.AppointmentRepository;
 
 /**
- * Workshop Appointment Query Service Implementation 
- * @see AppointmentQueryService WorkshopAppointmentQueryService for method details.
+ * Workshop Appointment Query Service Implementation
+ * 
+ * @see AppointmentQueryService WorkshopAppointmentQueryService for method
+ *      details.
  */
 @Service
 public class AppointmentQueryServiceImpl implements AppointmentQueryService {
@@ -44,16 +46,23 @@ public class AppointmentQueryServiceImpl implements AppointmentQueryService {
         if (query.from() == null && query.to() == null) {
             return repository.findByWorkshopId(query.workshopId());
         }
-        
+
         // If only one of them is null, we need special handling
         // If from is null, use a very early date; if to is null, use a far future date
         Instant fromDate = query.from() != null ? query.from() : Instant.EPOCH;
         Instant toDate = query.to() != null ? query.to() : Instant.ofEpochSecond(4102444800L); // 2100-01-01
-        
+
         return repository.findByWorkshopIdAndScheduledAtStartAtBetween(
-            query.workshopId(), 
-            fromDate, 
-            toDate
-        );
+                query.workshopId(),
+                fromDate,
+                toDate);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Appointment> handle(GetAppointmentsByDriverIdQuery query) {
+        return repository.findByDriverId(query.driverId());
     }
 }

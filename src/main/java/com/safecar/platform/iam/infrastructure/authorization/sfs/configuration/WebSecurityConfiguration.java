@@ -27,8 +27,10 @@ import java.util.List;
  * Web Security Configuration
  * <p>
  * Main configuration class for web security in the application.
- * Sets up security filters, authentication, authorization, CORS, CSRF protection,
- * exception handling, session management, and defines which endpoints are publicly accessible.
+ * Sets up security filters, authentication, authorization, CORS, CSRF
+ * protection,
+ * exception handling, session management, and defines which endpoints are
+ * publicly accessible.
  */
 @Configuration
 @EnableMethodSecurity
@@ -40,8 +42,7 @@ public class WebSecurityConfiguration {
     private final AuthenticationEntryPoint unauthorizedRequestHandlerEntryPoint;
 
     public WebSecurityConfiguration(
-            @Qualifier("defaultUserDetailsService")
-            ExtendedUserDetailsService userDetailsService,
+            @Qualifier("defaultUserDetailsService") ExtendedUserDetailsService userDetailsService,
             BearerTokenService tokenService,
             BCryptHashingService hashingService,
             AuthenticationEntryPoint unauthorizedRequestHandlerEntryPoint) {
@@ -60,8 +61,7 @@ public class WebSecurityConfiguration {
     @Bean
     public BearerAuthorizationRequestFilter authorizationRequestFilter(
             BearerTokenService tokenService,
-            @Qualifier("defaultUserDetailsService") ExtendedUserDetailsService uds
-    ) {
+            @Qualifier("defaultUserDetailsService") ExtendedUserDetailsService uds) {
         return new BearerAuthorizationRequestFilter(tokenService, uds);
     }
 
@@ -81,7 +81,8 @@ public class WebSecurityConfiguration {
     /**
      * Provides the DaoAuthenticationProvider bean.
      *
-     * @return DaoAuthenticationProvider configured with user details and password encoder.
+     * @return DaoAuthenticationProvider configured with user details and password
+     *         encoder.
      */
     @Bean
     @SuppressWarnings("deprecation")
@@ -105,8 +106,10 @@ public class WebSecurityConfiguration {
     /**
      * Configures the security filter chain.
      * <p>
-     * Sets up CORS, disables CSRF, configures exception handling, stateless session management,
-     * allows unauthenticated access to specific endpoints, and adds the JWT Bearer filter.
+     * Sets up CORS, disables CSRF, configures exception handling, stateless session
+     * management,
+     * allows unauthenticated access to specific endpoints, and adds the JWT Bearer
+     * filter.
      *
      * @param http HttpSecurity object for configuration.
      * @return Configured SecurityFilterChain.
@@ -119,11 +122,13 @@ public class WebSecurityConfiguration {
                 "/api/v1/authentication/**",
                 "/api/v1/profiles/**",
                 "/api/v1/person-profiles/**", // Allow public access for profile creation during sign-up
+                "/api/v1/business-profiles/**", // Allow public access for business profile creation
                 "/api/v1/drivers/**", // Allow public access to driver data
                 "/api/v1/workshops/**", // Allow public access to view workshops
                 "/api/v1/vehicles/**", // Allow public access to vehicle data
                 "/api/v1/appointments/**", // Allow public access to appointments
                 "/api/v1/telemetry/**", // Allow public access to telemetry data
+                "/api/v1/mechanics/**", // Allow public access to mechanics (for testing)
                 "/api/v1/insights/**", // Allow public access to insights
                 "/error", // Allow access to error page
                 "/v3/api-docs/**",
@@ -138,7 +143,7 @@ public class WebSecurityConfiguration {
                 .cors(cors -> cors.configurationSource(request -> {
                     var corsConfig = new CorsConfiguration();
                     corsConfig.setAllowedOrigins(List.of("*"));
-                    corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
                     corsConfig.setAllowedHeaders(List.of("*"));
                     return corsConfig;
                 }))
@@ -151,15 +156,13 @@ public class WebSecurityConfiguration {
                 // Authorization rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(publicMatchers).permitAll()
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 // Set the authentication provider by calling the bean method.
                 .authenticationProvider(authenticationProvider())
                 // Insert the JWT Bearer filter before Spring's login filter.
                 .addFilterBefore(
                         authorizationRequestFilter(tokenService, userDetailsService),
-                        UsernamePasswordAuthenticationFilter.class
-                );
+                        UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

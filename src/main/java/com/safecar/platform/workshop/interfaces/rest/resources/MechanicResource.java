@@ -16,10 +16,11 @@ import java.util.Set;
  * @param yearsOfExperience years of professional experience
  */
 public record MechanicResource(
-        Long id,
-        Long profileId,
-        Long workshopId,
-        Set<String> specializations,
-        Integer yearsOfExperience) {
+                Long id,
+                Long profileId,
+                String fullName,
+                Long workshopId,
+                Set<String> specializations,
+                Integer yearsOfExperience) {
 
 }

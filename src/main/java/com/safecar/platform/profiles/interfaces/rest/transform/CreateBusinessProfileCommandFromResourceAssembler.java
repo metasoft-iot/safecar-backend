@@ -11,6 +11,7 @@ public class CreateBusinessProfileCommandFromResourceAssembler {
                 resource.ruc(),
                 resource.businessAddress(),
                 resource.contactPhone(),
-                resource.contactEmail());
+                resource.contactEmail(),
+                resource.description());
     }
 }

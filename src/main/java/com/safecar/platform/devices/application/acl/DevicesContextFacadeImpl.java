@@ -16,16 +16,17 @@ import org.springframework.stereotype.Service;
 /**
  * DevicesContextFacadeImpl
  * <p>
- *     This class provides the implementation of the DevicesContextFacade interface.
- *     This class is used by other bounded contexts to interact with the Devices module
- *     for vehicle validation and information retrieval.
+ * This class provides the implementation of the DevicesContextFacade interface.
+ * This class is used by other bounded contexts to interact with the Devices
+ * module
+ * for vehicle validation and information retrieval.
  * </p>
  */
 @Service
 public class DevicesContextFacadeImpl implements DevicesContextFacade {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(DevicesContextFacadeImpl.class);
-    
+
     private final VehicleQueryService vehicleQueryService;
     private final VehicleRepository vehicleRepository;
     private final DriverCommandService driverCommandService;
@@ -34,15 +35,15 @@ public class DevicesContextFacadeImpl implements DevicesContextFacade {
     /**
      * Constructor
      *
-     * @param vehicleQueryService Vehicle Query Service
-     * @param vehicleRepository Vehicle Repository
+     * @param vehicleQueryService  Vehicle Query Service
+     * @param vehicleRepository    Vehicle Repository
      * @param driverCommandService Driver Command Service
-     * @param driverQueryService Driver Query Service
+     * @param driverQueryService   Driver Query Service
      */
     public DevicesContextFacadeImpl(VehicleQueryService vehicleQueryService,
-                                   VehicleRepository vehicleRepository,
-                                   DriverCommandService driverCommandService,
-                                   DriverQueryService driverQueryService) {
+            VehicleRepository vehicleRepository,
+            DriverCommandService driverCommandService,
+            DriverQueryService driverQueryService) {
         this.vehicleQueryService = vehicleQueryService;
         this.vehicleRepository = vehicleRepository;
         this.driverCommandService = driverCommandService;
@@ -106,7 +107,7 @@ public class DevicesContextFacadeImpl implements DevicesContextFacade {
             var query = new GetVehicleByIdQuery(vehicleId);
             var vehicle = vehicleQueryService.handle(query);
             return vehicle.map(v -> v.getBrand() + " " + v.getModel())
-                         .orElse("Unknown Vehicle");
+                    .orElse("Unknown Vehicle");
         } catch (Exception e) {
             logger.error("Error fetching vehicle details for ID {}: {}", vehicleId, e.getMessage());
             return "Unknown Vehicle";
@@ -121,8 +122,8 @@ public class DevicesContextFacadeImpl implements DevicesContextFacade {
             var vehicle = vehicleQueryService.handle(query);
             return vehicle.map(v -> v.getDriverId().equals(driverId)).orElse(false);
         } catch (Exception e) {
-            logger.error("Error validating driver ownership for vehicle {} and driver {}: {}", 
-                        vehicleId, driverId, e.getMessage());
+            logger.error("Error validating driver ownership for vehicle {} and driver {}: {}",
+                    vehicleId, driverId, e.getMessage());
             return false;
         }
     }

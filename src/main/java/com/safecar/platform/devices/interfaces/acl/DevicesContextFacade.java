@@ -3,11 +3,12 @@ package com.safecar.platform.devices.interfaces.acl;
 /**
  * DevicesContextFacade
  * <p>
- *     This interface provides the methods to interact with the Devices context.
- *     It provides methods to validate vehicles, retrieve vehicle information,
- *     and access driver-vehicle relationships.
- *     The implementation will be provided by the Devices module.
- *     This interface is used by other bounded contexts to interact with vehicle data.
+ * This interface provides the methods to interact with the Devices context.
+ * It provides methods to validate vehicles, retrieve vehicle information,
+ * and access driver-vehicle relationships.
+ * The implementation will be provided by the Devices module.
+ * This interface is used by other bounded contexts to interact with vehicle
+ * data.
  * </p>
  */
 public interface DevicesContextFacade {
@@ -15,8 +16,9 @@ public interface DevicesContextFacade {
     /**
      * validateVehicleExists
      * <p>
-     *     This method validates if a Vehicle exists by vehicleId.
+     * This method validates if a Vehicle exists by vehicleId.
      * </p>
+     * 
      * @param vehicleId the vehicle ID to validate
      * @return true if Vehicle exists, false otherwise
      */
@@ -25,8 +27,9 @@ public interface DevicesContextFacade {
     /**
      * validateVehicleExistsByLicensePlate
      * <p>
-     *     This method validates if a Vehicle exists by license plate.
+     * This method validates if a Vehicle exists by license plate.
      * </p>
+     * 
      * @param licensePlate the license plate to validate
      * @return true if Vehicle exists, false otherwise
      */
@@ -35,8 +38,9 @@ public interface DevicesContextFacade {
     /**
      * fetchVehicleDriverId
      * <p>
-     *     This method fetches the driver ID associated with a vehicle.
+     * This method fetches the driver ID associated with a vehicle.
      * </p>
+     * 
      * @param vehicleId the vehicle ID
      * @return the driver ID if vehicle found, 0L otherwise
      */
@@ -45,8 +49,9 @@ public interface DevicesContextFacade {
     /**
      * fetchVehicleLicensePlate
      * <p>
-     *     This method fetches the license plate of a vehicle by vehicle ID.
+     * This method fetches the license plate of a vehicle by vehicle ID.
      * </p>
+     * 
      * @param vehicleId the vehicle ID
      * @return the license plate if vehicle found, empty string otherwise
      */
@@ -55,20 +60,23 @@ public interface DevicesContextFacade {
     /**
      * fetchVehicleDetails
      * <p>
-     *     This method fetches basic vehicle details (brand and model).
+     * This method fetches basic vehicle details (brand and model).
      * </p>
+     * 
      * @param vehicleId the vehicle ID
-     * @return formatted vehicle details string "Brand Model" if found, "Unknown Vehicle" otherwise
+     * @return formatted vehicle details string "Brand Model" if found, "Unknown
+     *         Vehicle" otherwise
      */
     String fetchVehicleDetails(Long vehicleId);
 
     /**
      * validateDriverOwnsVehicle
      * <p>
-     *     This method validates if a specific driver owns the given vehicle.
+     * This method validates if a specific driver owns the given vehicle.
      * </p>
+     * 
      * @param vehicleId the vehicle ID
-     * @param driverId the driver ID
+     * @param driverId  the driver ID
      * @return true if driver owns the vehicle, false otherwise
      */
     boolean validateDriverOwnsVehicle(Long vehicleId, Long driverId);
@@ -76,8 +84,9 @@ public interface DevicesContextFacade {
     /**
      * createDriver
      * <p>
-     *     This method creates a new driver associated with a profile.
+     * This method creates a new driver associated with a profile.
      * </p>
+     * 
      * @param profileId the profile ID from Profiles BC
      * @return the driver ID if creation successful, 0L otherwise
      */
@@ -86,8 +95,9 @@ public interface DevicesContextFacade {
     /**
      * existsDriverByProfileId
      * <p>
-     *     This method checks if a driver exists for the given profile ID.
+     * This method checks if a driver exists for the given profile ID.
      * </p>
+     * 
      * @param profileId the profile ID from Profiles BC
      * @return true if driver exists, false otherwise
      */
@@ -96,8 +106,9 @@ public interface DevicesContextFacade {
     /**
      * getDriverIdByProfileId
      * <p>
-     *     This method retrieves the driver ID associated with a profile ID.
+     * This method retrieves the driver ID associated with a profile ID.
      * </p>
+     * 
      * @param profileId the profile ID from Profiles BC
      * @return the driver ID if found, 0L otherwise
      */

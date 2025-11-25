@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.safecar.platform.profiles.interfaces.acl.ProfilesContextFacade;
 
 /**
  * Workshop Entity Controller
@@ -35,123 +36,162 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Workshops", description = "Workshop entity management endpoints")
 public class WorkshopsController {
 
-    private final WorkshopCommandService workshopCommandService;
-    private final WorkshopQueryService workshopQueryService;
-    private final MechanicQueryService mechanicQueryService;
+        private final WorkshopCommandService workshopCommandService;
+        private final WorkshopQueryService workshopQueryService;
+        private final MechanicQueryService mechanicQueryService;
+        private final ProfilesContextFacade profilesContextFacade;
 
-    public WorkshopsController(WorkshopCommandService workshopCommandService,
-            WorkshopQueryService workshopQueryService,
-            MechanicQueryService mechanicQueryService) {
-        this.workshopCommandService = workshopCommandService;
-        this.workshopQueryService = workshopQueryService;
-        this.mechanicQueryService = mechanicQueryService;
-    }
+        public WorkshopsController(WorkshopCommandService workshopCommandService,
+                        WorkshopQueryService workshopQueryService,
+                        MechanicQueryService mechanicQueryService,
+                        ProfilesContextFacade profilesContextFacade) {
+                this.workshopCommandService = workshopCommandService;
+                this.workshopQueryService = workshopQueryService;
+                this.mechanicQueryService = mechanicQueryService;
+                this.profilesContextFacade = profilesContextFacade;
+        }
 
-    /**
-     * Gets all workshops.
-     *
-     * @return the list of {@link WorkshopResource} resources
-     */
-    @Operation(summary = "Get all workshops")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Workshops found")
-    })
-    @GetMapping
-    public ResponseEntity<java.util.List<WorkshopResource>> getAllWorkshops() {
-        var query = new GetAllWorkshopsQuery();
-        var workshops = workshopQueryService.handle(query);
-        
-        return ResponseEntity.ok(workshops.stream()
-                .map(WorkshopEntityResourceFromEntityAssembler::toResourceFromEntity)
-                .toList());
-    }
+        /**
+         * Gets all workshops.
+         *
+         * @return the list of {@link WorkshopResource} resources
+         */
+        @Operation(summary = "Get all workshops")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Workshops found")
+        })
+        @GetMapping
+        public ResponseEntity<java.util.List<WorkshopResource>> getAllWorkshops() {
+                var query = new GetAllWorkshopsQuery();
+                var workshops = workshopQueryService.handle(query);
 
-    /**
-     * Gets a workshop by its ID.
-     *
-     * @param workshopId the workshop ID
-     * @return the {@link WorkshopResource} resource
-     */
-    @Operation(summary = "Get workshop by ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Workshop found"),
-            @ApiResponse(responseCode = "404", description = "Workshop not found")
-    })
-    @GetMapping("/{workshopId}")
-    public ResponseEntity<WorkshopResource> getWorkshopById(
-            @Parameter(required = true) @PathVariable Long workshopId) {
+                return ResponseEntity.ok(workshops.stream()
+                                .map(workshop -> {
+                                        var businessName = profilesContextFacade.getBusinessNameByProfileId(
+                                                        workshop.getBusinessProfileId());
+                                        var businessAddress = profilesContextFacade.getBusinessAddressByProfileId(
+                                                        workshop.getBusinessProfileId());
+                                        return WorkshopEntityResourceFromEntityAssembler.toResourceFromEntity(workshop,
+                                                        businessName != null ? businessName : "Unknown Workshop",
+                                                        businessAddress != null ? businessAddress : "Unknown Address");
+                                })
+                                .toList());
+        }
 
-        var getWorkshopByIdQuery = new GetWorkshopByIdQuery(workshopId);
-        var workshop = workshopQueryService.handle(getWorkshopByIdQuery);
+        /**
+         * Gets a workshop by its ID.
+         *
+         * @param workshopId the workshop ID
+         * @return the {@link WorkshopResource} resource
+         */
+        @Operation(summary = "Get workshop by ID")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Workshop found"),
+                        @ApiResponse(responseCode = "404", description = "Workshop not found")
+        })
+        @GetMapping("/{workshopId}")
+        public ResponseEntity<WorkshopResource> getWorkshopById(
+                        @Parameter(required = true) @PathVariable Long workshopId) {
 
-        if (workshop.isEmpty())
-            return ResponseEntity.notFound().build();
+                var getWorkshopByIdQuery = new GetWorkshopByIdQuery(workshopId);
+                var workshop = workshopQueryService.handle(getWorkshopByIdQuery);
 
-        var workshopResource = WorkshopEntityResourceFromEntityAssembler
-                .toResourceFromEntity(workshop.get());
-        return ResponseEntity.ok(workshopResource);
-    }
+                if (workshop.isEmpty())
+                        return ResponseEntity.notFound().build();
 
-    /**
-     * Partially update a workshop (currently only description).
-     */
-    @Operation(summary = "Update workshop")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Workshop updated"),
-            @ApiResponse(responseCode = "404", description = "Workshop not found")
-    })
-    @PatchMapping("/{workshopId}")
-    public ResponseEntity<WorkshopResource> updateWorkshop(
-            @PathVariable Long workshopId,
-            @RequestBody UpdateWorkshopResource resource) {
+                var businessName = profilesContextFacade.getBusinessNameByProfileId(
+                                workshop.get().getBusinessProfileId());
+                var businessAddress = profilesContextFacade.getBusinessAddressByProfileId(
+                                workshop.get().getBusinessProfileId());
 
-        var command = UpdateWorkshopCommandFromResourceAssembler.toCommandFromResource(workshopId, resource);
-        var result = workshopCommandService.handle(command);
-        if (result.isEmpty())
-            return ResponseEntity.notFound().build();
-        var workshopResource = WorkshopEntityResourceFromEntityAssembler.toResourceFromEntity(result.get());
-        return ResponseEntity.ok(workshopResource);
-    }
+                var workshopResource = WorkshopEntityResourceFromEntityAssembler
+                                .toResourceFromEntity(workshop.get(),
+                                                businessName != null ? businessName : "Unknown Workshop",
+                                                businessAddress != null ? businessAddress : "Unknown Address");
+                return ResponseEntity.ok(workshopResource);
+        }
 
-    /**
-     * Get mechanics by workshop ID.
-     */
-    @Operation(summary = "Get mechanics by workshop ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Mechanics found"),
-            @ApiResponse(responseCode = "404", description = "Workshop not found")
-    })
-    @GetMapping("/{workshopId}/mechanics")
-    public ResponseEntity<java.util.List<MechanicResource>> getMechanicsByWorkshopId(
-            @PathVariable Long workshopId) {
+        /**
+         * Partially update a workshop (currently only description).
+         */
+        @Operation(summary = "Update workshop")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Workshop updated"),
+                        @ApiResponse(responseCode = "404", description = "Workshop not found")
+        })
+        @PatchMapping("/{workshopId}")
+        public ResponseEntity<WorkshopResource> updateWorkshop(
+                        @PathVariable Long workshopId,
+                        @RequestBody UpdateWorkshopResource resource) {
 
-        var getMechanicsByWorkshopIdQuery = new GetMechanicsByWorkshopIdQuery(workshopId);
-        var mechanics = mechanicQueryService.handle(getMechanicsByWorkshopIdQuery);
+                var command = UpdateWorkshopCommandFromResourceAssembler.toCommandFromResource(workshopId, resource);
+                var result = workshopCommandService.handle(command);
+                if (result.isEmpty())
+                        return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok(mechanics.stream()
-                .map(MechanicResourceFromEntityAssembler::toResourceFromEntity)
-                .toList());
-    }
+                var businessName = profilesContextFacade.getBusinessNameByProfileId(
+                                result.get().getBusinessProfileId());
+                var businessAddress = profilesContextFacade.getBusinessAddressByProfileId(
+                                result.get().getBusinessProfileId());
 
-    /**
-     * Get workshop by business profile ID.
-     */
-    @Operation(summary = "Get workshop by business profile ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Workshop found"),
-            @ApiResponse(responseCode = "404", description = "Workshop not found")
-    })
-    @GetMapping("/by-business-profile/{businessProfileId}")
-    public ResponseEntity<WorkshopResource> getWorkshopByBusinessProfileId(
-            @PathVariable Long businessProfileId) {
+                var workshopResource = WorkshopEntityResourceFromEntityAssembler.toResourceFromEntity(result.get(),
+                                businessName != null ? businessName : "Unknown Workshop",
+                                businessAddress != null ? businessAddress : "Unknown Address");
+                return ResponseEntity.ok(workshopResource);
+        }
 
-        var query = new GetWorkshopByBusinessProfileIdQuery(businessProfileId);
-        var workshop = workshopQueryService.handle(query);
+        /**
+         * Get mechanics by workshop ID.
+         */
+        @Operation(summary = "Get mechanics by workshop ID")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Mechanics found"),
+                        @ApiResponse(responseCode = "404", description = "Workshop not found")
+        })
+        @GetMapping("/{workshopId}/mechanics")
+        public ResponseEntity<java.util.List<MechanicResource>> getMechanicsByWorkshopId(
+                        @PathVariable Long workshopId) {
 
-        if (workshop.isEmpty())
-            return ResponseEntity.notFound().build();
+                var getMechanicsByWorkshopIdQuery = new GetMechanicsByWorkshopIdQuery(workshopId);
+                var mechanics = mechanicQueryService.handle(getMechanicsByWorkshopIdQuery);
 
-        var workshopResource = WorkshopEntityResourceFromEntityAssembler.toResourceFromEntity(workshop.get());
-        return ResponseEntity.ok(workshopResource);
-    }
+                return ResponseEntity.ok(mechanics.stream()
+                                .map(mechanic -> {
+                                        var fullName = getFullNameForMechanic(mechanic.getProfileId());
+                                        return MechanicResourceFromEntityAssembler.toResourceFromEntity(mechanic,
+                                                        fullName);
+                                })
+                                .toList());
+        }
+
+        /**
+         * Get workshop by business profile ID.
+         */
+        @Operation(summary = "Get workshop by business profile ID")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Workshop found"),
+                        @ApiResponse(responseCode = "404", description = "Workshop not found")
+        })
+        @GetMapping("/by-business-profile/{businessProfileId}")
+        public ResponseEntity<WorkshopResource> getWorkshopByBusinessProfileId(
+                        @PathVariable Long businessProfileId) {
+
+                var query = new GetWorkshopByBusinessProfileIdQuery(businessProfileId);
+                var workshop = workshopQueryService.handle(query);
+
+                if (workshop.isEmpty())
+                        return ResponseEntity.notFound().build();
+
+                var businessName = profilesContextFacade.getBusinessNameByProfileId(businessProfileId);
+                var businessAddress = profilesContextFacade.getBusinessAddressByProfileId(businessProfileId);
+
+                var workshopResource = WorkshopEntityResourceFromEntityAssembler.toResourceFromEntity(workshop.get(),
+                                businessName != null ? businessName : "Unknown Workshop",
+                                businessAddress != null ? businessAddress : "Unknown Address");
+                return ResponseEntity.ok(workshopResource);
+        }
+
+        private String getFullNameForMechanic(Long profileId) {
+                return profilesContextFacade.getPersonFullNameByProfileId(profileId);
+        }
 }

@@ -16,16 +16,17 @@ public class MechanicResourceFromEntityAssembler {
      * @param entity the Mechanic domain entity
      * @return the MechanicResource
      */
-    public static MechanicResource toResourceFromEntity(Mechanic entity) {
+    public static MechanicResource toResourceFromEntity(Mechanic entity, String fullName) {
 
         var specializationNames = SpecializationStringSetFromSetAssembler
                 .toStringSetFromSpecializationSet(entity.getSpecializations());
 
         return new MechanicResource(
-            entity.getId(),
-            entity.getProfileId(),
-            entity.getWorkshopIdValue(),
-            specializationNames,
-            entity.getYearsOfExperience());
+                entity.getId(),
+                entity.getProfileId(),
+                fullName,
+                entity.getWorkshopIdValue(),
+                specializationNames,
+                entity.getYearsOfExperience());
     }
 }

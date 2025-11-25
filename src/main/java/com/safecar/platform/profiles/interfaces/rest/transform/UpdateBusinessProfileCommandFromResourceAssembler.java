@@ -7,11 +7,11 @@ public class UpdateBusinessProfileCommandFromResourceAssembler {
 
     public static UpdateBusinessProfileCommand toCommandFromResource(UpdateBusinessProfileResource resource) {
         return new UpdateBusinessProfileCommand(
-            resource.businessName(),
-            resource.ruc(),
-            resource.businessAddress(),
-            resource.contactPhone(),
-            resource.contactEmail()
-        );
+                resource.businessName(),
+                resource.ruc(),
+                resource.businessAddress(),
+                resource.contactPhone(),
+                resource.contactEmail(),
+                resource.description());
     }
 }
