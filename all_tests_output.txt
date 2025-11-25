@@ -1,0 +1,586 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.fusesource.jansi.internal.JansiLoader in an unnamed module (file:/mnt/c/Users/sharv/apache-maven-3.9.6/lib/jansi-2.4.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper (file:/mnt/c/Users/sharv/apache-maven-3.9.6/lib/guava-32.0.1-jre.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.safecar.platform:backend >--------------------
+[INFO] Building safecar-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ backend ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ backend ---
+[INFO] skip non existing resourceDirectory /home/sharvel/webs/safecar-backend/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.safecar.platform.devices.interfaces.rest.DriversControllerTest
+14:05:51.713 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.safecar.platform.devices.interfaces.rest.DriversControllerTest]: DriversControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:05:52.149 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.devices.interfaces.rest.DriversControllerTest
+14:05:52.276 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:05:52.950-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.d.i.rest.DriversControllerTest     : Starting DriversControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:05:52.952-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.d.i.rest.DriversControllerTest     : No active profile set, falling back to 1 default profile: "default"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/home/sharvel/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2025-11-25T14:06:00.372-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 56953b89-030a-4953-b4b5-22e5187c884a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:00.388-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:00.729-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:00.732-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:00.739-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2025-11-25T14:06:00.822-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.d.i.rest.DriversControllerTest     : Started DriversControllerTest in 8.567 seconds (process running for 8.764)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.797 s -- in com.safecar.platform.devices.interfaces.rest.DriversControllerTest
+[INFO] Running com.safecar.platform.devices.interfaces.rest.VehiclesControllerTest
+2025-11-25T14:06:01.220-05:00  INFO 666869 --- [SafeCar Platform] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.safecar.platform.devices.interfaces.rest.VehiclesControllerTest]: VehiclesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25T14:06:01.252-05:00  INFO 666869 --- [SafeCar Platform] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.devices.interfaces.rest.VehiclesControllerTest
+2025-11-25T14:06:01.269-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2025-11-25T14:06:01.287-05:00  INFO 666869 --- [SafeCar Platform] [           main] m.p.springdotenv.DotenvPropertySource    : Initialized Dotenv with DotenvConfig{directory=null, filename=null, ignoreIfMalformed=false, ignoreIfMissing=true, systemProperties=false, prefix=null}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:06:01.334-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.d.i.rest.VehiclesControllerTest    : Starting VehiclesControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:06:01.334-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.d.i.rest.VehiclesControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2025-11-25T14:06:02.207-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 5fda9c02-dd16-4d44-b417-b8a885555f87
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:02.209-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:02.241-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:02.241-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:02.242-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-11-25T14:06:02.254-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.d.i.rest.VehiclesControllerTest    : Started VehiclesControllerTest in 0.986 seconds (process running for 10.196)
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.298 s -- in com.safecar.platform.devices.interfaces.rest.VehiclesControllerTest
+[INFO] Running com.safecar.platform.devices.application.internal.queryservices.DriverQueryServiceImplTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.339 s -- in com.safecar.platform.devices.application.internal.queryservices.DriverQueryServiceImplTest
+[INFO] Running com.safecar.platform.devices.application.internal.queryservices.VehicleQueryServiceImplTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.361 s -- in com.safecar.platform.devices.application.internal.queryservices.VehicleQueryServiceImplTest
+[INFO] Running com.safecar.platform.devices.application.internal.commandservices.VehicleCommandServiceImplTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.249 s -- in com.safecar.platform.devices.application.internal.commandservices.VehicleCommandServiceImplTest
+[INFO] Running com.safecar.platform.devices.application.internal.commandservices.DriverCommandServiceImplTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.030 s -- in com.safecar.platform.devices.application.internal.commandservices.DriverCommandServiceImplTest
+[INFO] Running com.safecar.platform.workshop.interfaces.rest.WorkshopsControllerTest
+2025-11-25T14:06:03.545-05:00  INFO 666869 --- [SafeCar Platform] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.safecar.platform.workshop.interfaces.rest.WorkshopsControllerTest]: WorkshopsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25T14:06:03.582-05:00  INFO 666869 --- [SafeCar Platform] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.workshop.interfaces.rest.WorkshopsControllerTest
+2025-11-25T14:06:03.593-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2025-11-25T14:06:03.595-05:00  INFO 666869 --- [SafeCar Platform] [           main] m.p.springdotenv.DotenvPropertySource    : Initialized Dotenv with DotenvConfig{directory=null, filename=null, ignoreIfMalformed=false, ignoreIfMissing=true, systemProperties=false, prefix=null}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:06:03.635-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.w.i.rest.WorkshopsControllerTest   : Starting WorkshopsControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:06:03.635-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.w.i.rest.WorkshopsControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2025-11-25T14:06:04.406-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: d4e92d2d-63d7-4d6d-a4de-09da08d6b98d
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:04.407-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:04.428-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:04.428-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:04.428-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-11-25T14:06:04.435-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.w.i.rest.WorkshopsControllerTest   : Started WorkshopsControllerTest in 0.842 seconds (process running for 12.376)
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.003 s -- in com.safecar.platform.workshop.interfaces.rest.WorkshopsControllerTest
+[INFO] Running com.safecar.platform.workshop.application.internal.queryservices.WorkshopQueryServiceImplTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.115 s -- in com.safecar.platform.workshop.application.internal.queryservices.WorkshopQueryServiceImplTest
+[INFO] Running com.safecar.platform.workshop.application.internal.commandservices.WorkshopCommandServiceImplTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.028 s -- in com.safecar.platform.workshop.application.internal.commandservices.WorkshopCommandServiceImplTest
+[INFO] Running com.safecar.platform.payments.interfaces.rest.PaymentsControllerTest
+2025-11-25T14:06:04.699-05:00  INFO 666869 --- [SafeCar Platform] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.safecar.platform.payments.interfaces.rest.PaymentsControllerTest]: PaymentsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25T14:06:04.730-05:00  INFO 666869 --- [SafeCar Platform] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.payments.interfaces.rest.PaymentsControllerTest
+2025-11-25T14:06:04.734-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2025-11-25T14:06:04.739-05:00  INFO 666869 --- [SafeCar Platform] [           main] m.p.springdotenv.DotenvPropertySource    : Initialized Dotenv with DotenvConfig{directory=null, filename=null, ignoreIfMalformed=false, ignoreIfMissing=true, systemProperties=false, prefix=null}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:06:04.767-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.i.rest.PaymentsControllerTest    : Starting PaymentsControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:06:04.768-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.i.rest.PaymentsControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2025-11-25T14:06:05.430-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: bcc80868-81f5-4895-9c52-a71aae8384c9
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:05.431-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:05.489-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:05.490-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:05.492-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2025-11-25T14:06:05.511-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.i.rest.PaymentsControllerTest    : Started PaymentsControllerTest in 0.776 seconds (process running for 13.452)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.019 s -- in com.safecar.platform.payments.interfaces.rest.PaymentsControllerTest
+[INFO] Running com.safecar.platform.payments.interfaces.rest.StripeWebhooksControllerTest
+2025-11-25T14:06:05.726-05:00  INFO 666869 --- [SafeCar Platform] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.safecar.platform.payments.interfaces.rest.StripeWebhooksControllerTest]: StripeWebhooksControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25T14:06:05.748-05:00  INFO 666869 --- [SafeCar Platform] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.payments.interfaces.rest.StripeWebhooksControllerTest
+2025-11-25T14:06:05.755-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2025-11-25T14:06:05.760-05:00  INFO 666869 --- [SafeCar Platform] [           main] m.p.springdotenv.DotenvPropertySource    : Initialized Dotenv with DotenvConfig{directory=null, filename=null, ignoreIfMalformed=false, ignoreIfMissing=true, systemProperties=false, prefix=null}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:06:05.801-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.i.r.StripeWebhooksControllerTest : Starting StripeWebhooksControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:06:05.801-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.i.r.StripeWebhooksControllerTest : No active profile set, falling back to 1 default profile: "default"
+2025-11-25T14:06:06.642-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: b55e86d4-494b-4b8d-95b9-6d2bda325341
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:06.645-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:06.671-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:06.672-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:06.673-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-11-25T14:06:06.679-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.i.r.StripeWebhooksControllerTest : Started StripeWebhooksControllerTest in 0.924 seconds (process running for 14.62)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.492 s -- in com.safecar.platform.payments.interfaces.rest.StripeWebhooksControllerTest
+[INFO] Running com.safecar.platform.payments.application.internal.commandservices.PaymentCommandServiceImplTest
+2025-11-25T14:06:07.376-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : === PAYMENT COMMAND SERVICE INITIALIZED ===
+2025-11-25T14:06:07.377-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : Creating subscription for userId: user_123 with Stripe ID: sub_123
+2025-11-25T14:06:07.383-05:00 ERROR 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : Error creating subscription: DB error
+
+java.lang.RuntimeException: DB error
+	at com.safecar.platform.payments.application.internal.commandservices.PaymentCommandServiceImpl.handle(PaymentCommandServiceImpl.java:64) ~[classes/:na]
+	at com.safecar.platform.payments.application.internal.commandservices.PaymentCommandServiceImplTest.handleCreateSubscriptionCommand_WhenError_ReturnsEmpty(PaymentCommandServiceImplTest.java:80) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:775) ~[junit-platform-commons-1.12.2.jar:1.12.2]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:479) ~[junit-platform-commons-1.12.2.jar:1.12.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:216) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:212) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:201) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:170) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:94) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:59) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:142) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.4.jar:3.5.4]
+
+2025-11-25T14:06:07.394-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : === PAYMENT COMMAND SERVICE INITIALIZED ===
+2025-11-25T14:06:07.396-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : Creating checkout session for userId: user_123 and plan: BASIC
+2025-11-25T14:06:07.397-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : Checkout session created successfully: session_id
+2025-11-25T14:06:07.405-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : === PAYMENT COMMAND SERVICE INITIALIZED ===
+2025-11-25T14:06:07.406-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : Creating subscription for userId: user_123 with Stripe ID: sub_123
+2025-11-25T14:06:07.407-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : Subscription created successfully with ID: 1
+2025-11-25T14:06:07.420-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : === PAYMENT COMMAND SERVICE INITIALIZED ===
+2025-11-25T14:06:07.423-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : Creating checkout session for userId: user_123 and plan: BASIC
+2025-11-25T14:06:07.428-05:00 ERROR 666869 --- [SafeCar Platform] [           main] c.s.p.p.a.i.c.PaymentCommandServiceImpl  : Unexpected error creating checkout session: Stripe error
+
+java.lang.RuntimeException: Stripe error
+	at com.safecar.platform.payments.infrastructure.external.StripePaymentGateway.createCheckoutSession(StripePaymentGateway.java:28) ~[classes/:na]
+	at com.safecar.platform.payments.application.internal.commandservices.PaymentCommandServiceImpl.handle(PaymentCommandServiceImpl.java:40) ~[classes/:na]
+	at com.safecar.platform.payments.application.internal.commandservices.PaymentCommandServiceImplTest.lambda$0(PaymentCommandServiceImplTest.java:55) ~[test-classes/:na]
+	at org.assertj.core.api.ThrowableAssert.catchThrowable(ThrowableAssert.java:63) ~[assertj-core-3.27.6.jar:na]
+	at org.assertj.core.api.AssertionsForClassTypes.catchThrowable(AssertionsForClassTypes.java:905) ~[assertj-core-3.27.6.jar:na]
+	at org.assertj.core.api.Assertions.catchThrowable(Assertions.java:1473) ~[assertj-core-3.27.6.jar:na]
+	at org.assertj.core.api.Assertions.assertThatThrownBy(Assertions.java:1316) ~[assertj-core-3.27.6.jar:na]
+	at com.safecar.platform.payments.application.internal.commandservices.PaymentCommandServiceImplTest.handleCreateCheckoutSessionCommand_WhenStripeError_ThrowsException(PaymentCommandServiceImplTest.java:55) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:775) ~[junit-platform-commons-1.12.2.jar:1.12.2]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:479) ~[junit-platform-commons-1.12.2.jar:1.12.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:216) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:212) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:201) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:170) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:94) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:59) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:142) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.4.jar:3.5.4]
+
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.209 s -- in com.safecar.platform.payments.application.internal.commandservices.PaymentCommandServiceImplTest
+[INFO] Running com.safecar.platform.iam.interfaces.rest.RolesControllerTest
+2025-11-25T14:06:07.440-05:00  INFO 666869 --- [SafeCar Platform] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.safecar.platform.iam.interfaces.rest.RolesControllerTest]: RolesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25T14:06:07.472-05:00  INFO 666869 --- [SafeCar Platform] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.iam.interfaces.rest.RolesControllerTest
+2025-11-25T14:06:07.476-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2025-11-25T14:06:07.479-05:00  INFO 666869 --- [SafeCar Platform] [           main] m.p.springdotenv.DotenvPropertySource    : Initialized Dotenv with DotenvConfig{directory=null, filename=null, ignoreIfMalformed=false, ignoreIfMissing=true, systemProperties=false, prefix=null}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:06:07.513-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.rest.RolesControllerTest       : Starting RolesControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:06:07.513-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.rest.RolesControllerTest       : No active profile set, falling back to 1 default profile: "default"
+2025-11-25T14:06:08.124-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: b0038892-2de1-45fe-8d74-e79ab83f8a0a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:08.125-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:08.158-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:08.158-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:08.159-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-11-25T14:06:08.167-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.rest.RolesControllerTest       : Started RolesControllerTest in 0.691 seconds (process running for 16.109)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.774 s -- in com.safecar.platform.iam.interfaces.rest.RolesControllerTest
+[INFO] Running com.safecar.platform.iam.interfaces.rest.AuthenticationControllerTest
+2025-11-25T14:06:08.219-05:00  INFO 666869 --- [SafeCar Platform] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.safecar.platform.iam.interfaces.rest.AuthenticationControllerTest]: AuthenticationControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25T14:06:08.229-05:00  INFO 666869 --- [SafeCar Platform] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.iam.interfaces.rest.AuthenticationControllerTest
+2025-11-25T14:06:08.236-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2025-11-25T14:06:08.238-05:00  INFO 666869 --- [SafeCar Platform] [           main] m.p.springdotenv.DotenvPropertySource    : Initialized Dotenv with DotenvConfig{directory=null, filename=null, ignoreIfMalformed=false, ignoreIfMissing=true, systemProperties=false, prefix=null}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:06:08.276-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.r.AuthenticationControllerTest : Starting AuthenticationControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:06:08.277-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.r.AuthenticationControllerTest : No active profile set, falling back to 1 default profile: "default"
+2025-11-25T14:06:08.898-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: da605496-c8be-4348-9855-8eb5ec671100
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:08.900-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:08.923-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:08.923-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:08.924-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-11-25T14:06:08.935-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.r.AuthenticationControllerTest : Started AuthenticationControllerTest in 0.698 seconds (process running for 16.876)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.848 s -- in com.safecar.platform.iam.interfaces.rest.AuthenticationControllerTest
+[INFO] Running com.safecar.platform.iam.interfaces.rest.UsersControllerTest
+2025-11-25T14:06:09.074-05:00  INFO 666869 --- [SafeCar Platform] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.safecar.platform.iam.interfaces.rest.UsersControllerTest]: UsersControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25T14:06:09.086-05:00  INFO 666869 --- [SafeCar Platform] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.iam.interfaces.rest.UsersControllerTest
+2025-11-25T14:06:09.099-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2025-11-25T14:06:09.100-05:00  INFO 666869 --- [SafeCar Platform] [           main] m.p.springdotenv.DotenvPropertySource    : Initialized Dotenv with DotenvConfig{directory=null, filename=null, ignoreIfMalformed=false, ignoreIfMissing=true, systemProperties=false, prefix=null}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:06:09.120-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.rest.UsersControllerTest       : Starting UsersControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:06:09.120-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.rest.UsersControllerTest       : No active profile set, falling back to 1 default profile: "default"
+2025-11-25T14:06:09.567-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 7e7e327f-0173-4553-a755-582608e8789d
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:09.569-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:09.608-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:09.608-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:09.610-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-11-25T14:06:09.623-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.rest.UsersControllerTest       : Started UsersControllerTest in 0.525 seconds (process running for 17.565)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.649 s -- in com.safecar.platform.iam.interfaces.rest.UsersControllerTest
+[INFO] Running com.safecar.platform.iam.application.internal.queryservices.RoleQueryServiceImplTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.091 s -- in com.safecar.platform.iam.application.internal.queryservices.RoleQueryServiceImplTest
+[INFO] Running com.safecar.platform.iam.application.internal.queryservices.UserQueryServiceImplTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.089 s -- in com.safecar.platform.iam.application.internal.queryservices.UserQueryServiceImplTest
+[INFO] Running com.safecar.platform.iam.application.internal.commandservices.UserCommandServiceImplTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.186 s -- in com.safecar.platform.iam.application.internal.commandservices.UserCommandServiceImplTest
+[INFO] Running com.safecar.platform.iam.application.internal.commandservices.RoleCommandServiceImplTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in com.safecar.platform.iam.application.internal.commandservices.RoleCommandServiceImplTest
+[INFO] Running com.safecar.platform.profiles.interfaces.rest.BusinessProfilesControllerTest
+2025-11-25T14:06:10.114-05:00  INFO 666869 --- [SafeCar Platform] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.safecar.platform.profiles.interfaces.rest.BusinessProfilesControllerTest]: BusinessProfilesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25T14:06:10.151-05:00  INFO 666869 --- [SafeCar Platform] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.profiles.interfaces.rest.BusinessProfilesControllerTest
+2025-11-25T14:06:10.155-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2025-11-25T14:06:10.159-05:00  INFO 666869 --- [SafeCar Platform] [           main] m.p.springdotenv.DotenvPropertySource    : Initialized Dotenv with DotenvConfig{directory=null, filename=null, ignoreIfMalformed=false, ignoreIfMissing=true, systemProperties=false, prefix=null}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:06:10.190-05:00  INFO 666869 --- [SafeCar Platform] [           main] s.p.p.i.r.BusinessProfilesControllerTest : Starting BusinessProfilesControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:06:10.193-05:00  INFO 666869 --- [SafeCar Platform] [           main] s.p.p.i.r.BusinessProfilesControllerTest : No active profile set, falling back to 1 default profile: "default"
+2025-11-25T14:06:10.945-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 87812f85-fe0f-4ac9-a1ec-f304be9d37ea
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:10.946-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:10.974-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:10.975-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:10.975-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-11-25T14:06:10.982-05:00  INFO 666869 --- [SafeCar Platform] [           main] s.p.p.i.r.BusinessProfilesControllerTest : Started BusinessProfilesControllerTest in 0.828 seconds (process running for 18.923)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.965 s -- in com.safecar.platform.profiles.interfaces.rest.BusinessProfilesControllerTest
+[INFO] Running com.safecar.platform.profiles.interfaces.rest.PersonProfilesControllerTest
+2025-11-25T14:06:11.083-05:00  INFO 666869 --- [SafeCar Platform] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.safecar.platform.profiles.interfaces.rest.PersonProfilesControllerTest]: PersonProfilesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25T14:06:11.099-05:00  INFO 666869 --- [SafeCar Platform] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.profiles.interfaces.rest.PersonProfilesControllerTest
+2025-11-25T14:06:11.103-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2025-11-25T14:06:11.106-05:00  INFO 666869 --- [SafeCar Platform] [           main] m.p.springdotenv.DotenvPropertySource    : Initialized Dotenv with DotenvConfig{directory=null, filename=null, ignoreIfMalformed=false, ignoreIfMissing=true, systemProperties=false, prefix=null}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:06:11.128-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.i.r.PersonProfilesControllerTest : Starting PersonProfilesControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:06:11.128-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.i.r.PersonProfilesControllerTest : No active profile set, falling back to 1 default profile: "default"
+2025-11-25T14:06:11.658-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: c12c3e7d-8d30-45a1-b545-0504b29bd042
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:11.659-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:11.681-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:11.681-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:11.682-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-11-25T14:06:11.688-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.p.i.r.PersonProfilesControllerTest : Started PersonProfilesControllerTest in 0.585 seconds (process running for 19.629)
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.688 s -- in com.safecar.platform.profiles.interfaces.rest.PersonProfilesControllerTest
+[INFO] Running com.safecar.platform.profiles.application.internal.queryservices.PersonProfileQueryServiceImplTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.107 s -- in com.safecar.platform.profiles.application.internal.queryservices.PersonProfileQueryServiceImplTest
+[INFO] Running com.safecar.platform.profiles.application.internal.queryservices.BusinessProfileQueryServiceImplTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.092 s -- in com.safecar.platform.profiles.application.internal.queryservices.BusinessProfileQueryServiceImplTest
+[INFO] Running com.safecar.platform.profiles.application.internal.commandservices.BusinessProfileCommandServiceImplTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.080 s -- in com.safecar.platform.profiles.application.internal.commandservices.BusinessProfileCommandServiceImplTest
+[INFO] Running com.safecar.platform.profiles.application.internal.commandservices.PersonProfileCommandServiceImplTest
+2025-11-25T14:06:12.096-05:00  INFO 666869 --- [SafeCar Platform] [           main] .p.a.i.c.PersonProfileCommandServiceImpl : Creating PersonProfile for user: test@example.com
+2025-11-25T14:06:12.097-05:00  INFO 666869 --- [SafeCar Platform] [           main] .p.a.i.c.PersonProfileCommandServiceImpl : Fetched roles for user test@example.com: [ROLE_CLIENT]
+2025-11-25T14:06:12.098-05:00  INFO 666869 --- [SafeCar Platform] [           main] .p.a.i.c.PersonProfileCommandServiceImpl : PersonProfile saved with ID: 1 for user: test@example.com
+2025-11-25T14:06:12.098-05:00  INFO 666869 --- [SafeCar Platform] [           main] .p.a.i.c.PersonProfileCommandServiceImpl : Publishing ProfileCreatedEvent for profileId: 1 with roles: [ROLE_CLIENT]
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s -- in com.safecar.platform.profiles.application.internal.commandservices.PersonProfileCommandServiceImplTest
+[INFO] Running com.safecar.platform.insights.interfaces.rest.InsightsControllerTest
+2025-11-25T14:06:12.112-05:00  INFO 666869 --- [SafeCar Platform] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.safecar.platform.insights.interfaces.rest.InsightsControllerTest]: InsightsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25T14:06:12.133-05:00  INFO 666869 --- [SafeCar Platform] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.safecar.platform.SafecarBackendApplication for test class com.safecar.platform.insights.interfaces.rest.InsightsControllerTest
+2025-11-25T14:06:12.137-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2025-11-25T14:06:12.139-05:00  INFO 666869 --- [SafeCar Platform] [           main] m.p.springdotenv.DotenvPropertySource    : Initialized Dotenv with DotenvConfig{directory=null, filename=null, ignoreIfMalformed=false, ignoreIfMissing=true, systemProperties=false, prefix=null}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-25T14:06:12.158-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.rest.InsightsControllerTest    : Starting InsightsControllerTest using Java 25.0.1 with PID 666869 (started by sharvel in /home/sharvel/webs/safecar-backend)
+2025-11-25T14:06:12.158-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.rest.InsightsControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2025-11-25T14:06:12.991-05:00  WARN 666869 --- [SafeCar Platform] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 794f5b37-a19f-46ce-bb24-3fdd367b1733
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-25T14:06:12.991-05:00  INFO 666869 --- [SafeCar Platform] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-11-25T14:06:13.021-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-11-25T14:06:13.022-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-11-25T14:06:13.022-05:00  INFO 666869 --- [SafeCar Platform] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-11-25T14:06:13.036-05:00  INFO 666869 --- [SafeCar Platform] [           main] c.s.p.i.i.rest.InsightsControllerTest    : Started InsightsControllerTest in 0.9 seconds (process running for 20.977)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.998 s -- in com.safecar.platform.insights.interfaces.rest.InsightsControllerTest
+[INFO] Running com.safecar.platform.insights.application.internal.queryservices.VehicleInsightQueryServiceImplTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.107 s -- in com.safecar.platform.insights.application.internal.queryservices.VehicleInsightQueryServiceImplTest
+[INFO] Running com.safecar.platform.insights.application.internal.commandservices.VehicleInsightCommandServiceImplTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.734 s -- in com.safecar.platform.insights.application.internal.commandservices.VehicleInsightCommandServiceImplTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 86, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  28.872 s
+[INFO] Finished at: 2025-11-25T14:06:14-05:00
+[INFO] ------------------------------------------------------------------------

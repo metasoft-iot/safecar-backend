@@ -2,7 +2,6 @@ package com.safecar.platform.shared.domain.model.aggregates;
 
 import java.util.Date;
 
-
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -17,15 +16,16 @@ import lombok.Getter;
  * Provides automatic management of creation and update timestamps,
  * as well as a generated primary key.
  * </p>
- * 
+ *
  * @param <T> the type of the aggregate root.
  */
 @Getter
 @MappedSuperclass
-// Use Spring Data JPA's AuditingEntityListener to populate @CreatedDate / @LastModifiedDate
+// Use Spring Data JPA's AuditingEntityListener to populate @CreatedDate /
+// @LastModifiedDate
 @EntityListeners(AuditingEntityListener.class)
 public class AuditableAbstractAggregateRoot<T extends AbstractAggregateRoot<T>> extends AbstractAggregateRoot<T> {
-     /**
+    /**
      * The unique identifier for the aggregate root.
      */
     @Id
@@ -51,9 +51,14 @@ public class AuditableAbstractAggregateRoot<T extends AbstractAggregateRoot<T>> 
 
     /**
      * Gets the unique identifier for this aggregate root.
+     * 
      * @return the ID of this aggregate root
      */
     public Long getId() {
         return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
