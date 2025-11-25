@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safecar.platform.workshop.domain.model.commands.AssignMechanicToWorkshopCommand;
 import com.safecar.platform.workshop.domain.services.MechanicCommandService;
+import com.safecar.platform.workshop.domain.services.MechanicQueryService;
+import com.safecar.platform.workshop.domain.model.queries.GetMechanicByProfileIdQuery;
 import com.safecar.platform.workshop.interfaces.rest.resources.AssignMechanicToWorkshopResource;
 import com.safecar.platform.workshop.interfaces.rest.resources.MechanicResource;
 import com.safecar.platform.workshop.interfaces.rest.resources.UpdateMechanicMetricsResource;
@@ -18,7 +20,18 @@ import com.safecar.platform.workshop.interfaces.rest.transform.UpdateMechanicMet
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping(value = "/api/v1/mechanics", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,9 +39,28 @@ import jakarta.validation.Valid;
 public class MechanicsController {
 
     private final MechanicCommandService commandService;
+    private final MechanicQueryService queryService;
 
-    public MechanicsController(MechanicCommandService commandService) {
+    public MechanicsController(MechanicCommandService commandService, MechanicQueryService queryService) {
         this.commandService = commandService;
+        this.queryService = queryService;
+    }
+
+    @Operation(summary = "Get mechanic by profile ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Mechanic found"),
+            @ApiResponse(responseCode = "404", description = "Mechanic not found")
+    })
+    @GetMapping("/profile/{profileId}")
+    public ResponseEntity<MechanicResource> getMechanicByProfileId(@PathVariable Long profileId) {
+        var query = new GetMechanicByProfileIdQuery(profileId);
+        var mechanic = queryService.handle(query);
+
+        if (mechanic.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        var mechanicResource = MechanicResourceFromEntityAssembler.toResourceFromEntity(mechanic.get());
+        return ResponseEntity.ok(mechanicResource);
     }
 
     @Operation(summary = "Update mechanic")
