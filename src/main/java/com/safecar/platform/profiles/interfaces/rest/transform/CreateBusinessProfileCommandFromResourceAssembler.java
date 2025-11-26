@@ -7,6 +7,7 @@ public class CreateBusinessProfileCommandFromResourceAssembler {
 
     public static CreateBusinessProfileCommand toCommandFromResource(CreateBusinessProfileResource resource) {
         return new CreateBusinessProfileCommand(
+                resource.username(),
                 resource.businessName(),
                 resource.ruc(),
                 resource.businessAddress(),

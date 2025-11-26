@@ -7,6 +7,7 @@ package com.safecar.platform.profiles.interfaces.rest.resource;
  * </p>
  * 
  * @param id              The id of the business.
+ * @param username        The username or nickname of the account owner.
  * @param businessName    The name of the business.
  * @param ruc             The ruc of the business
  * @param businessAddress The address of the business.
@@ -14,11 +15,12 @@ package com.safecar.platform.profiles.interfaces.rest.resource;
  * @param contactEmail    The contact email address for the business.
  */
 public record BusinessProfileResource(
-                Long id,
-                String businessName,
-                String ruc,
-                String businessAddress,
-                String contactPhone,
-                String contactEmail,
-                String description) {
+        Long id,
+        String username,
+        String businessName,
+        String ruc,
+        String businessAddress,
+        String contactPhone,
+        String contactEmail,
+        String description) {
 }

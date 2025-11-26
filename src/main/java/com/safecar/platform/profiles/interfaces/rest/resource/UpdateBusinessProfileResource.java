@@ -6,6 +6,7 @@ package com.safecar.platform.profiles.interfaces.rest.resource;
  * This record represents the data required to update a business profile.
  * </p>
  * 
+ * @param username        - The username or nickname of the account owner
  * @param businessName    - The name of the business
  * @param ruc             - The RUC (Registro Único de Contribuyentes) of the
  *                        business
@@ -14,10 +15,11 @@ package com.safecar.platform.profiles.interfaces.rest.resource;
  * @param contactEmail    - The contact email of the business
  */
 public record UpdateBusinessProfileResource(
-                String businessName,
-                String ruc,
-                String businessAddress,
-                String contactPhone,
-                String contactEmail,
-                String description) {
+        String username,
+        String businessName,
+        String ruc,
+        String businessAddress,
+        String contactPhone,
+        String contactEmail,
+        String description) {
 }

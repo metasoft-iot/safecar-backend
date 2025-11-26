@@ -3,6 +3,7 @@ package com.safecar.platform.profiles.domain.model.commands;
 /**
  * Create Business Profile Command
  * 
+ * @param username        the username or nickname
  * @param businessName    the business name
  * @param ruc             the ruc number
  * @param businessAddress the business address
@@ -10,10 +11,11 @@ package com.safecar.platform.profiles.domain.model.commands;
  * @param contactEmail    the contact email
  */
 public record CreateBusinessProfileCommand(
-                String businessName,
-                String ruc,
-                String businessAddress,
-                String contactPhone,
-                String contactEmail,
-                String description) {
+        String username,
+        String businessName,
+        String ruc,
+        String businessAddress,
+        String contactPhone,
+        String contactEmail,
+        String description) {
 }

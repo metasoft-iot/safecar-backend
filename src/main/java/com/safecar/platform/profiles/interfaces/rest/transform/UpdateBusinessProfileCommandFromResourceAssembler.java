@@ -7,6 +7,7 @@ public class UpdateBusinessProfileCommandFromResourceAssembler {
 
     public static UpdateBusinessProfileCommand toCommandFromResource(UpdateBusinessProfileResource resource) {
         return new UpdateBusinessProfileCommand(
+                resource.username(),
                 resource.businessName(),
                 resource.ruc(),
                 resource.businessAddress(),

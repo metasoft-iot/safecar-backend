@@ -28,7 +28,8 @@ public class BusinessProfileQueryServiceImplTest {
     @Test
     public void handleGetBusinessProfileByIdQuery_WhenProfileExists_ReturnsProfile() {
         // Arrange
-        BusinessProfile profile = new BusinessProfile("test@example.com", "Business Name", "12345678901", "Address",
+        BusinessProfile profile = new BusinessProfile("test@example.com", "testuser", "Business Name", "12345678901",
+                "Address",
                 "123456789", "contact@example.com", "Description");
         profile.setId(1L);
 
@@ -45,7 +46,8 @@ public class BusinessProfileQueryServiceImplTest {
     @Test
     public void handleGetBusinessProfileByUserEmailQuery_WhenProfileExists_ReturnsProfile() {
         // Arrange
-        BusinessProfile profile = new BusinessProfile("test@example.com", "Business Name", "12345678901", "Address",
+        BusinessProfile profile = new BusinessProfile("test@example.com", "testuser", "Business Name", "12345678901",
+                "Address",
                 "123456789", "contact@example.com", "Description");
 
         when(businessProfileRepository.findByUserEmail("test@example.com")).thenReturn(Optional.of(profile));

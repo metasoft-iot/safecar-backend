@@ -34,93 +34,98 @@ import com.safecar.platform.profiles.interfaces.rest.resource.UpdateBusinessProf
 @AutoConfigureMockMvc(addFilters = false)
 public class BusinessProfilesControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+        @Autowired
+        private MockMvc mockMvc;
 
-    @MockitoBean
-    private BusinessProfileQueryService businessProfileQueryService;
+        @MockitoBean
+        private BusinessProfileQueryService businessProfileQueryService;
 
-    @MockitoBean
-    private BusinessProfileCommandService businessProfileCommandService;
+        @MockitoBean
+        private BusinessProfileCommandService businessProfileCommandService;
 
-    @MockitoBean
-    private org.springframework.data.jpa.mapping.JpaMetamodelMappingContext jpaMetamodelMappingContext;
+        @MockitoBean
+        private org.springframework.data.jpa.mapping.JpaMetamodelMappingContext jpaMetamodelMappingContext;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+        @Autowired
+        private ObjectMapper objectMapper;
 
-    @Test
-    public void getBusinessProfileByEmail_WhenProfileExists_ReturnsProfile() throws Exception {
-        // Arrange
-        BusinessProfile profile = new BusinessProfile("test@example.com", "Business Name", "12345678901", "Address",
-                "123456789", "contact@example.com", "Description");
-        profile.setId(1L);
+        @Test
+        public void getBusinessProfileByEmail_WhenProfileExists_ReturnsProfile() throws Exception {
+                // Arrange
+                BusinessProfile profile = new BusinessProfile("test@example.com", "testuser", "Business Name",
+                                "12345678901", "Address",
+                                "123456789", "contact@example.com", "Description");
+                profile.setId(1L);
 
-        when(businessProfileQueryService.handle(any(GetBusinessProfileByUserEmailQuery.class)))
-                .thenReturn(Optional.of(profile));
+                when(businessProfileQueryService.handle(any(GetBusinessProfileByUserEmailQuery.class)))
+                                .thenReturn(Optional.of(profile));
 
-        // Act & Assert
-        mockMvc.perform(get("/api/v1/business-profiles")
-                .param("email", "test@example.com")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.businessName").value("Business Name"));
-    }
+                // Act & Assert
+                mockMvc.perform(get("/api/v1/business-profiles")
+                                .param("email", "test@example.com")
+                                .contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(status().isOk())
+                                .andExpect(jsonPath("$.id").value(1L))
+                                .andExpect(jsonPath("$.businessName").value("Business Name"));
+        }
 
-    @Test
-    public void getBusinessProfileByEmail_WhenProfileNotFound_ReturnsNotFound() throws Exception {
-        // Arrange
-        when(businessProfileQueryService.handle(any(GetBusinessProfileByUserEmailQuery.class)))
-                .thenReturn(Optional.empty());
+        @Test
+        public void getBusinessProfileByEmail_WhenProfileNotFound_ReturnsNotFound() throws Exception {
+                // Arrange
+                when(businessProfileQueryService.handle(any(GetBusinessProfileByUserEmailQuery.class)))
+                                .thenReturn(Optional.empty());
 
-        // Act & Assert
-        mockMvc.perform(get("/api/v1/business-profiles")
-                .param("email", "test@example.com")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
+                // Act & Assert
+                mockMvc.perform(get("/api/v1/business-profiles")
+                                .param("email", "test@example.com")
+                                .contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(status().isNotFound());
+        }
 
-    @Test
-    public void createNewBusinessProfile_WhenValidData_ReturnsCreatedProfile() throws Exception {
-        // Arrange
-        CreateBusinessProfileResource resource = new CreateBusinessProfileResource("Business Name", "12345678901",
-                "Address", "123456789", "contact@example.com", "Description");
-        BusinessProfile profile = new BusinessProfile("test@example.com", "Business Name", "12345678901", "Address",
-                "123456789", "contact@example.com", "Description");
-        profile.setId(1L);
+        @Test
+        public void createNewBusinessProfile_WhenValidData_ReturnsCreatedProfile() throws Exception {
+                // Arrange
+                CreateBusinessProfileResource resource = new CreateBusinessProfileResource("testuser", "Business Name",
+                                "12345678901",
+                                "Address", "123456789", "contact@example.com", "Description");
+                BusinessProfile profile = new BusinessProfile("test@example.com", "testuser", "Business Name",
+                                "12345678901", "Address",
+                                "123456789", "contact@example.com", "Description");
+                profile.setId(1L);
 
-        when(businessProfileCommandService.handle(any(CreateBusinessProfileCommand.class), anyString()))
-                .thenReturn(Optional.of(profile));
+                when(businessProfileCommandService.handle(any(CreateBusinessProfileCommand.class), anyString()))
+                                .thenReturn(Optional.of(profile));
 
-        // Act & Assert
-        mockMvc.perform(post("/api/v1/business-profiles")
-                .param("userEmail", "test@example.com")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(resource)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.businessName").value("Business Name"));
-    }
+                // Act & Assert
+                mockMvc.perform(post("/api/v1/business-profiles")
+                                .param("userEmail", "test@example.com")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(resource)))
+                                .andExpect(status().isCreated())
+                                .andExpect(jsonPath("$.id").value(1L))
+                                .andExpect(jsonPath("$.businessName").value("Business Name"));
+        }
 
-    @Test
-    public void updateBusinessProfile_WhenValidData_ReturnsUpdatedProfile() throws Exception {
-        // Arrange
-        UpdateBusinessProfileResource resource = new UpdateBusinessProfileResource("Business Name Updated",
-                "12345678901", "Address", "123456789", "contact@example.com", "Description");
-        BusinessProfile profile = new BusinessProfile("test@example.com", "Business Name Updated", "12345678901",
-                "Address", "123456789", "contact@example.com", "Description");
-        profile.setId(1L);
+        @Test
+        public void updateBusinessProfile_WhenValidData_ReturnsUpdatedProfile() throws Exception {
+                // Arrange
+                UpdateBusinessProfileResource resource = new UpdateBusinessProfileResource("testuser",
+                                "Business Name Updated",
+                                "12345678901", "Address", "123456789", "contact@example.com", "Description");
+                BusinessProfile profile = new BusinessProfile("test@example.com", "testuser", "Business Name Updated",
+                                "12345678901",
+                                "Address", "123456789", "contact@example.com", "Description");
+                profile.setId(1L);
 
-        when(businessProfileCommandService.handle(any(UpdateBusinessProfileCommand.class), anyLong()))
-                .thenReturn(Optional.of(profile));
+                when(businessProfileCommandService.handle(any(UpdateBusinessProfileCommand.class), anyLong()))
+                                .thenReturn(Optional.of(profile));
 
-        // Act & Assert
-        mockMvc.perform(put("/api/v1/business-profiles/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(resource)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.businessName").value("Business Name Updated"));
-    }
+                // Act & Assert
+                mockMvc.perform(put("/api/v1/business-profiles/1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(resource)))
+                                .andExpect(status().isCreated())
+                                .andExpect(jsonPath("$.id").value(1L))
+                                .andExpect(jsonPath("$.businessName").value("Business Name Updated"));
+        }
 }

@@ -63,7 +63,8 @@ public class BusinessProfileCommandServiceImpl implements BusinessProfileCommand
 
         var entity = businessProfileOpt.get();
 
-        entity.updateBusinessProfileMetrics(command.businessName(), command.ruc(), command.businessAddress(),
+        entity.updateBusinessProfileMetrics(command.username(), command.businessName(), command.ruc(),
+                command.businessAddress(),
                 command.contactPhone(), command.contactEmail(), command.description());
 
         var updated = businessProfileRepository.save(entity);

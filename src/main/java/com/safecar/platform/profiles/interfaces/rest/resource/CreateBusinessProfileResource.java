@@ -1,10 +1,11 @@
 package com.safecar.platform.profiles.interfaces.rest.resource;
 
 public record CreateBusinessProfileResource(
-                String businessName,
-                String ruc,
-                String businessAddress,
-                String contactPhone,
-                String contactEmail,
-                String description) {
+        String username,
+        String businessName,
+        String ruc,
+        String businessAddress,
+        String contactPhone,
+        String contactEmail,
+        String description) {
 }

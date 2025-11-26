@@ -7,10 +7,11 @@ package com.safecar.platform.profiles.domain.model.commands;
  * </p>
  */
 public record UpdateBusinessProfileCommand(
-                String businessName,
-                String ruc,
-                String businessAddress,
-                String contactPhone,
-                String contactEmail,
-                String description) {
+        String username,
+        String businessName,
+        String ruc,
+        String businessAddress,
+        String contactPhone,
+        String contactEmail,
+        String description) {
 }
