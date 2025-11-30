@@ -7,12 +7,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
-import java.util.UUID;
-
 @Getter
 @Entity
-@Table(name = "devices",
-        uniqueConstraints = @UniqueConstraint(columnNames = "mac_address")) // Regla física
+@Table(name = "devices", uniqueConstraints = @UniqueConstraint(columnNames = "mac_address")) // Regla física
 public class Device extends AuditableAbstractAggregateRoot<Device> {
 
     // NOTA: No necesitamos crear 'id', 'createdAt' ni 'updatedAt'.
@@ -29,32 +26,26 @@ public class Device extends AuditableAbstractAggregateRoot<Device> {
     private DeviceType deviceType;
 
     // Relación con Vehicle
-    // OJO: Como tu Vehicle ahora usa UUID (por el AuditableAbstract...),
-    // aquí el vínculo debe ser UUID, no Long.
     @Column(name = "vehicle_id")
-    private UUID vehicleId;
+    private Long vehicleId;
 
     // Estado del dispositivo
     private String status;
 
     // Constructor vacío protegido para JPA
-    protected Device() {}
+    protected Device() {
+    }
 
     // Constructor de Negocio (Command)
     public Device(CreateDeviceCommand command) {
         this.macAddress = command.macAddress();
         this.deviceType = command.deviceType();
         this.status = "ACTIVE";
-
-        // Si el comando trae un vehículo, lo asignamos
-        if (command.vehicleId() != null) {
-            this.vehicleId = command.vehicleId();
-        }
     }
 
     // Comportamiento de Negocio (Business Logic)
 
-    public void assignToVehicle(UUID vehicleId) {
+    public void assignToVehicle(Long vehicleId) {
         this.vehicleId = vehicleId;
     }
 

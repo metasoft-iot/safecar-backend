@@ -67,11 +67,6 @@ public record TelemetrySample(
         if (timestamp == null) {
             throw new IllegalArgumentException("Timestamp cannot be null");
         }
-        if (vehicleId == null) {
-            throw new IllegalArgumentException("Vehicle ID cannot be null");
-        }
-        if (driverId == null) {
-            throw new IllegalArgumentException("Driver ID cannot be null");
-        }
+        // vehicleId and driverId can be null initially if macAddress is provided
     }
 }

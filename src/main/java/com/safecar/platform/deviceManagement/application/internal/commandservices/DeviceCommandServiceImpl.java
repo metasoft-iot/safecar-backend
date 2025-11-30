@@ -13,9 +13,12 @@ import java.util.Optional;
 public class DeviceCommandServiceImpl implements DeviceCommandService {
 
     private final DeviceRepository deviceRepository;
+    private final com.safecar.platform.devices.domain.services.VehicleQueryService vehicleQueryService;
 
-    public DeviceCommandServiceImpl(DeviceRepository deviceRepository) {
+    public DeviceCommandServiceImpl(DeviceRepository deviceRepository,
+            com.safecar.platform.devices.domain.services.VehicleQueryService vehicleQueryService) {
         this.deviceRepository = deviceRepository;
+        this.vehicleQueryService = vehicleQueryService;
     }
 
     @Override
@@ -28,6 +31,24 @@ public class DeviceCommandServiceImpl implements DeviceCommandService {
         // 2. Crear
         var device = new Device(command);
 
+        // 2.1 Si viene placa, buscar vehículo y asignar
+        if (command.licensePlate() != null && !command.licensePlate().isBlank()) {
+            var query = new com.safecar.platform.devices.domain.model.queries.GetVehicleByLicensePlateQuery(
+                    command.licensePlate());
+            var vehicle = vehicleQueryService.handle(query);
+            if (vehicle.isPresent()) {
+                device.assignToVehicle(vehicle.get().getId());
+            } else {
+                throw new IllegalArgumentException(
+                        "Vehicle with license plate " + command.licensePlate() + " not found");
+            }
+        } else {
+            // Optional: Decide if license plate is mandatory. For now, we can allow
+            // creating a device without a vehicle.
+            // Or throw exception if linking is required.
+            // Based on user request, licensePlate seems to be the way to link.
+        }
+
         // 3. Guardar y retornar envuelto en Optional
         deviceRepository.save(device);
         return Optional.of(device);
@@ -35,9 +56,9 @@ public class DeviceCommandServiceImpl implements DeviceCommandService {
 
     @Override
     public Optional<Device> handle(UpdateDeviceMetricsCommand command) {
-        // CORRECCIÓN 1: Convertir el String que viene del comando a UUID
+        // CORRECCIÓN 1: Convertir el String que viene del comando a Long
         // (Asumiendo que en el command el deviceId es un String)
-        var id = java.util.UUID.fromString(command.deviceId());
+        var id = Long.parseLong(command.deviceId());
 
         // CORRECCIÓN 2: Usar 'findById' que ya viene gratis en JpaRepository
         var result = deviceRepository.findById(id);
@@ -53,5 +74,42 @@ public class DeviceCommandServiceImpl implements DeviceCommandService {
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<Device> handle(
+            com.safecar.platform.deviceManagement.domain.model.commands.UpdateDeviceCommand command) {
+        var result = deviceRepository.findById(command.deviceId());
+
+        if (result.isPresent()) {
+            Device device = result.get();
+
+            if (command.licensePlate() != null && !command.licensePlate().isBlank()) {
+                var query = new com.safecar.platform.devices.domain.model.queries.GetVehicleByLicensePlateQuery(
+                        command.licensePlate());
+                var vehicle = vehicleQueryService.handle(query);
+                if (vehicle.isPresent()) {
+                    device.assignToVehicle(vehicle.get().getId());
+                } else {
+                    throw new IllegalArgumentException(
+                            "Vehicle with license plate " + command.licensePlate() + " not found");
+                }
+            }
+
+            if (command.status() != null && !command.status().isBlank()) {
+                device.updateStatus(command.status());
+            }
+
+            deviceRepository.save(device);
+            return Optional.of(device);
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
+    public void handle(com.safecar.platform.deviceManagement.domain.model.commands.DeleteDeviceCommand command) {
+        var result = deviceRepository.findById(command.deviceId());
+        result.ifPresent(deviceRepository::delete);
     }
 }

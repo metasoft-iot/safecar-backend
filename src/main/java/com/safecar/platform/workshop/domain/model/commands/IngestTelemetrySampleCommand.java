@@ -6,6 +6,6 @@ import com.safecar.platform.workshop.domain.model.valueobjects.TelemetrySample;
  * Command to ingest a telemetry sample.
  */
 public record IngestTelemetrySampleCommand(
-        TelemetrySample sample
-) {
+        TelemetrySample sample,
+        String macAddress) {
 }

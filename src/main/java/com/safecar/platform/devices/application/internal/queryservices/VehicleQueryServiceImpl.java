@@ -33,7 +33,7 @@ public class VehicleQueryServiceImpl implements VehicleQueryService {
 
     /**
      * Constructor for VehicleQueryServiceImpl
-     * 
+     *
      * @param vehicleRepository     The Vehicle Repository
      * @param appointmentRepository The Appointment Repository
      */
@@ -69,5 +69,11 @@ public class VehicleQueryServiceImpl implements VehicleQueryService {
 
         // Fetch vehicles by IDs
         return vehicleRepository.findAllById(vehicleIds);
+    }
+
+    @Override
+    public Optional<Vehicle> handle(
+            com.safecar.platform.devices.domain.model.queries.GetVehicleByLicensePlateQuery query) {
+        return vehicleRepository.findByLicensePlate(query.licensePlate());
     }
 }
