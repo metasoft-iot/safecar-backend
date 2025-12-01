@@ -89,9 +89,33 @@ public class TelemetriesController {
     }
 
     /**
+     * Get telemetry records by device id.
+     */
+    @GetMapping(value = "/device/{deviceId}")
+    @Operation(summary = "Get telemetry records by device id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Telemetry records found"),
+            @ApiResponse(responseCode = "404", description = "Device not found or no records")
+    })
+    public ResponseEntity<List<TelemetryRecordResource>> getTelemetryByDeviceId(@PathVariable String deviceId) {
+        var query = new com.safecar.platform.workshop.domain.model.queries.GetTelemetryByDeviceIdQuery(deviceId);
+        var records = queryService.handle(query);
+
+        if (records.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        var resources = records.stream()
+                .map(TelemetryRecordResourceFromEntityAssembler::toResourceFromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(resources);
+    }
+
+    /**
      * Get telemetry records for vehicle (optionally filtered by time range).
-     * If from and to are not provided, returns all telemetry records for the vehicle (most recent first).
-     * 
+     * If from and to are not provided, returns all telemetry records for the
+     * vehicle (most recent first).
+     *
      * @param vehicleId The ID of the vehicle.
      * @param from      Optional start time of the range.
      * @param to        Optional end time of the range.
@@ -108,9 +132,9 @@ public class TelemetriesController {
             @RequestParam(required = false) Instant from,
             @RequestParam(required = false) Instant to) {
         var vehicle = new com.safecar.platform.workshop.domain.model.valueobjects.VehicleId(vehicleId);
-        
+
         List<com.safecar.platform.workshop.domain.model.entities.TelemetryRecord> records;
-        
+
         // If both from and to are provided, use range query
         if (from != null && to != null) {
             var query = new GetTelemetryByVehicleAndRangeQuery(vehicle, from, to);
@@ -120,7 +144,7 @@ public class TelemetriesController {
             var query = new com.safecar.platform.workshop.domain.model.queries.GetTelemetryByVehicleQuery(vehicle);
             records = queryService.handle(query);
         }
-        
+
         var resources = records.stream().map(TelemetryRecordResourceFromEntityAssembler::toResourceFromEntity)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(resources);
@@ -128,7 +152,7 @@ public class TelemetriesController {
 
     /**
      * Get telemetry alerts by severity in range.
-     * 
+     *
      * @param severity The severity level of the alerts.
      * @param from     The start time of the range.
      * @param to       The end time of the range.

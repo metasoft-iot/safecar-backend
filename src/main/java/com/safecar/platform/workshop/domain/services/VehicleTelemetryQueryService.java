@@ -9,9 +9,16 @@ import com.safecar.platform.workshop.domain.model.queries.GetTelemetryByVehicleA
 import com.safecar.platform.workshop.domain.model.queries.GetTelemetryByVehicleQuery;
 import com.safecar.platform.workshop.domain.model.queries.GetTelemetryRecordByIdQuery;
 
+import com.safecar.platform.workshop.domain.model.queries.GetTelemetryByDeviceIdQuery;
+
 public interface VehicleTelemetryQueryService {
     Optional<TelemetryRecord> handle(GetTelemetryRecordByIdQuery query);
+
     List<TelemetryRecord> handle(GetTelemetryByVehicleAndRangeQuery query);
+
     List<TelemetryRecord> handle(GetTelemetryByVehicleQuery query);
+
     List<TelemetryRecord> handle(GetTelemetryAlertsBySeverityQuery query);
+
+    List<TelemetryRecord> handle(GetTelemetryByDeviceIdQuery query);
 }
