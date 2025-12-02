@@ -80,7 +80,14 @@ public class VehicleCommandServiceImpl implements VehicleCommandService {
                         "Vehicle with license plate '" + command.licensePlate() + "' already exists");
             }
 
-            vehicle.updateVehicle(command.licensePlate(), command.brand(), command.model());
+            vehicle.updateVehicle(
+                    command.licensePlate(),
+                    command.brand(),
+                    command.model(),
+                    command.year(),
+                    command.vin(),
+                    command.color(),
+                    command.mileage());
             var vehicleUpdated = vehicleRepository.save(vehicle);
 
             return Optional.of(vehicleUpdated);

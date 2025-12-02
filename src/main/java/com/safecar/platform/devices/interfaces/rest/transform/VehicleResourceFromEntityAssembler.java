@@ -23,6 +23,10 @@ public class VehicleResourceFromEntityAssembler {
                 vehicle.getDriverId(),
                 vehicle.getLicensePlate(),
                 vehicle.getBrand(),
-                vehicle.getModel());
+                vehicle.getModel(),
+                vehicle.getYear(),
+                vehicle.getVin(),
+                vehicle.getColor(),
+                vehicle.getMileage());
     }
 }

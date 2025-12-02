@@ -50,8 +50,10 @@ public class VehiclesControllerTest {
     @Test
     public void createVehicle_WhenValidData_ReturnsCreatedVehicle() throws Exception {
         // Arrange
-        CreateVehicleResource resource = new CreateVehicleResource(1L, "ABC-123", "Brand", "Model");
-        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model");
+        CreateVehicleResource resource = new CreateVehicleResource(1L, "ABC-123", "Brand", "Model", null, null, null,
+                null);
+        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model", null, null, null,
+                null);
         Vehicle vehicle = new Vehicle(command);
         vehicle.setId(1L);
 
@@ -69,7 +71,8 @@ public class VehiclesControllerTest {
     @Test
     public void getVehicleById_WhenVehicleExists_ReturnsVehicle() throws Exception {
         // Arrange
-        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model");
+        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model", null, null, null,
+                null);
         Vehicle vehicle = new Vehicle(command);
         vehicle.setId(1L);
 
@@ -97,7 +100,8 @@ public class VehiclesControllerTest {
     @Test
     public void getVehiclesByDriverId_WhenVehiclesExist_ReturnsVehicles() throws Exception {
         // Arrange
-        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model");
+        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model", null, null, null,
+                null);
         Vehicle vehicle = new Vehicle(command);
         vehicle.setId(1L);
 
@@ -113,7 +117,8 @@ public class VehiclesControllerTest {
     @Test
     public void getVehiclesByWorkshopId_WhenVehiclesExist_ReturnsVehicles() throws Exception {
         // Arrange
-        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model");
+        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model", null, null, null,
+                null);
         Vehicle vehicle = new Vehicle(command);
         vehicle.setId(1L);
 

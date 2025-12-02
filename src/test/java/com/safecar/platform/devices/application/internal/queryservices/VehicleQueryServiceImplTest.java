@@ -20,7 +20,6 @@ import com.safecar.platform.devices.domain.model.queries.GetVehicleByIdQuery;
 import com.safecar.platform.devices.domain.model.queries.GetVehiclesByWorkshopIdQuery;
 import com.safecar.platform.devices.infrastructure.persistence.jpa.repositories.VehicleRepository;
 import com.safecar.platform.workshop.domain.model.aggregates.Appointment;
-import com.safecar.platform.workshop.domain.model.valueobjects.VehicleId;
 import com.safecar.platform.workshop.domain.model.valueobjects.WorkshopId;
 import com.safecar.platform.workshop.infrastructure.persistence.jpa.repositories.AppointmentRepository;
 
@@ -39,7 +38,8 @@ public class VehicleQueryServiceImplTest {
     @Test
     public void handleGetVehicleByIdQuery_WhenVehicleExists_ReturnsVehicle() {
         // Arrange
-        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model");
+        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model", null, null, null,
+                null);
         Vehicle vehicle = new Vehicle(command);
         vehicle.setId(1L);
 
@@ -56,7 +56,8 @@ public class VehicleQueryServiceImplTest {
     @Test
     public void handleGetVehicleByDriverIdQuery_WhenVehiclesExist_ReturnsVehicles() {
         // Arrange
-        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model");
+        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model", null, null, null,
+                null);
         Vehicle vehicle = new Vehicle(command);
         vehicle.setId(1L);
 
@@ -73,7 +74,8 @@ public class VehicleQueryServiceImplTest {
     @Test
     public void handleGetVehiclesByWorkshopIdQuery_WhenAppointmentsExist_ReturnsVehicles() {
         // Arrange
-        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model");
+        CreateVehicleCommand command = new CreateVehicleCommand(1L, "ABC-123", "Brand", "Model", null, null, null,
+                null);
         Vehicle vehicle = new Vehicle(command);
         vehicle.setId(1L);
 

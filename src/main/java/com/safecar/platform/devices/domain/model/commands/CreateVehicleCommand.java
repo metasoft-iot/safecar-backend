@@ -8,12 +8,20 @@ package com.safecar.platform.devices.domain.model.commands;
  * @param licensePlate the license plate of the vehicle
  * @param brand        the brand of the vehicle
  * @param model        the model of the vehicle
+ * @param year         the manufacturing year of the vehicle (optional)
+ * @param vin          the Vehicle Identification Number (optional)
+ * @param color        the color of the vehicle (optional)
+ * @param mileage      the current mileage of the vehicle (optional)
  */
 public record CreateVehicleCommand(
         Long driverId,
         String licensePlate,
         String brand,
-        String model) {
+        String model,
+        Integer year,
+        String vin,
+        String color,
+        Integer mileage) {
 
     public CreateVehicleCommand {
         if (driverId == null || driverId <= 0)

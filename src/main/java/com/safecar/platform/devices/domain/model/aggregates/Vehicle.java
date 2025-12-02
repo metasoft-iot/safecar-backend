@@ -39,6 +39,26 @@ public class Vehicle extends AuditableAbstractAggregateRoot<Vehicle> {
     private String model;
 
     /**
+     * Year - The manufacturing year of the vehicle.
+     */
+    private Integer year;
+
+    /**
+     * VIN - The Vehicle Identification Number.
+     */
+    private String vin;
+
+    /**
+     * Color - The color of the vehicle.
+     */
+    private String color;
+
+    /**
+     * Mileage - The current mileage/odometer reading of the vehicle.
+     */
+    private Integer mileage;
+
+    /**
      * Protected constructor for JPA
      */
     protected Vehicle() {
@@ -54,6 +74,10 @@ public class Vehicle extends AuditableAbstractAggregateRoot<Vehicle> {
         this.licensePlate = command.licensePlate();
         this.brand = command.brand();
         this.model = command.model();
+        this.year = command.year();
+        this.vin = command.vin();
+        this.color = command.color();
+        this.mileage = command.mileage();
     }
 
     /**
@@ -62,11 +86,20 @@ public class Vehicle extends AuditableAbstractAggregateRoot<Vehicle> {
      * @param licensePlate the new license plate
      * @param brand        the new brand
      * @param model        the new model
+     * @param year         the new year
+     * @param vin          the new VIN
+     * @param color        the new color
+     * @param mileage      the new mileage
      */
-    public void updateVehicle(String licensePlate, String brand, String model) {
+    public void updateVehicle(String licensePlate, String brand, String model,
+            Integer year, String vin, String color, Integer mileage) {
         this.licensePlate = licensePlate;
         this.brand = brand;
         this.model = model;
+        this.year = year;
+        this.vin = vin;
+        this.color = color;
+        this.mileage = mileage;
     }
 
     /**

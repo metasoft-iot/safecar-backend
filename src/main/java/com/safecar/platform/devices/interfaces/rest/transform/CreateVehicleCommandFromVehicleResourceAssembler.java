@@ -23,6 +23,10 @@ public class CreateVehicleCommandFromVehicleResourceAssembler {
                 resource.driverId(),
                 resource.licensePlate(),
                 resource.brand(),
-                resource.model());
+                resource.model(),
+                resource.year(),
+                resource.vin(),
+                resource.color(),
+                resource.mileage());
     }
 }

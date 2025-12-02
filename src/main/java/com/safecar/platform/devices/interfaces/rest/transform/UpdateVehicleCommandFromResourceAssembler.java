@@ -1,6 +1,7 @@
 package com.safecar.platform.devices.interfaces.rest.transform;
 
 import com.safecar.platform.devices.domain.model.commands.UpdateVehicleCommand;
+import com.safecar.platform.devices.interfaces.rest.resources.UpdateVehicleResource;
 
 /**
  * Assembler to transform UpdateVehicleCommand resource to command object.
@@ -17,12 +18,16 @@ public class UpdateVehicleCommandFromResourceAssembler {
      * @param id       the vehicle id
      * @return the corresponding UpdateVehicleCommand
      */
-    public static UpdateVehicleCommand toCommandFromResource(UpdateVehicleCommand resource, Long id) {
+    public static UpdateVehicleCommand toCommandFromResource(UpdateVehicleResource resource, Long id) {
         return new UpdateVehicleCommand(
                 id,
                 resource.driverId(),
                 resource.licensePlate(),
                 resource.brand(),
-                resource.model());
+                resource.model(),
+                resource.year(),
+                resource.vin(),
+                resource.color(),
+                resource.mileage());
     }
 }
