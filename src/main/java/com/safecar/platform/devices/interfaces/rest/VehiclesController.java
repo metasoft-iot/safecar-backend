@@ -161,4 +161,55 @@ public class VehiclesController {
 
                 return ResponseEntity.ok(vehicleResources);
         }
+
+        /**
+         * Updates an existing vehicle.
+         *
+         * @param vehicleId the unique identifier of the vehicle
+         * @param resource  the vehicle update request
+         * @return the updated vehicle information
+         */
+        @Operation(summary = "Update a vehicle", description = "Updates an existing vehicle.")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Vehicle updated successfully", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = VehicleResource.class))),
+                        @ApiResponse(responseCode = "404", description = "Vehicle not found", content = @Content),
+                        @ApiResponse(responseCode = "400", description = "Invalid input data", content = @Content)
+        })
+        @PutMapping("/vehicles/{vehicleId}")
+        public ResponseEntity<VehicleResource> updateVehicle(
+                        @Parameter @PathVariable Long vehicleId,
+                        @Parameter @RequestBody com.safecar.platform.devices.interfaces.rest.resources.UpdateVehicleResource resource) {
+
+                var command = com.safecar.platform.devices.interfaces.rest.transform.UpdateVehicleCommandFromResourceAssembler
+                                .toCommandFromResource(resource, vehicleId);
+                var vehicleOpt = commandService.handle(command);
+
+                if (vehicleOpt.isEmpty())
+                        return ResponseEntity.notFound().build();
+
+                return ResponseEntity.ok(VehicleResourceFromEntityAssembler
+                                .toResourceFromEntity(vehicleOpt.get()));
+        }
+
+        /**
+         * Deletes a vehicle.
+         *
+         * @param vehicleId the unique identifier of the vehicle
+         * @return confirmation of deletion
+         */
+        @Operation(summary = "Delete a vehicle", description = "Deletes a vehicle by its ID.")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "204", description = "Vehicle deleted successfully", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Vehicle not found", content = @Content)
+        })
+        @DeleteMapping("/vehicles/{vehicleId}")
+        public ResponseEntity<Void> deleteVehicle(
+                        @Parameter @PathVariable Long vehicleId) {
+
+                var command = new com.safecar.platform.devices.domain.model.commands.DeleteVehicleCommand(vehicleId,
+                                null);
+                commandService.handle(command);
+
+                return ResponseEntity.noContent().build();
+        }
 }
