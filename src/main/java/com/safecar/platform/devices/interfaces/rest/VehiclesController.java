@@ -120,9 +120,9 @@ public class VehiclesController {
                         @ApiResponse(responseCode = "400", description = "Invalid driver ID format", content = @Content),
                         @ApiResponse(responseCode = "404", description = "Driver not found", content = @Content)
         })
-        @GetMapping(value = "/drivers/{driverId}/vehicles")
+        @GetMapping(value = "/vehicles", params = "driver")
         public ResponseEntity<List<VehicleResource>> getVehiclesByDriverId(
-                        @Parameter @PathVariable Long driverId) {
+                        @Parameter @RequestParam("driver") Long driverId) {
 
                 var query = new GetVehicleByDriverIdQuery(driverId);
                 var vehicles = vehicleQueryService.handle(query);
@@ -148,9 +148,9 @@ public class VehiclesController {
                         @ApiResponse(responseCode = "200", description = "Vehicles retrieved successfully (may be empty list)", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = VehicleResource.class))),
                         @ApiResponse(responseCode = "400", description = "Invalid workshop ID format", content = @Content)
         })
-        @GetMapping(value = "/workshops/{workshopId}/vehicles")
+        @GetMapping(value = "/vehicles", params = "workshop")
         public ResponseEntity<List<VehicleResource>> getVehiclesByWorkshopId(
-                        @Parameter @PathVariable Long workshopId) {
+                        @Parameter @RequestParam("workshop") Long workshopId) {
 
                 var query = new GetVehiclesByWorkshopIdQuery(workshopId);
                 var vehicles = vehicleQueryService.handle(query);

@@ -35,7 +35,7 @@ public class DriversController {
     /**
      * Constructor for DriversController.
      * 
-     * @param driverQueryService the driver query service
+     * @param driverQueryService   the driver query service
      * @param driverCommandService the driver command service
      */
     public DriversController(
@@ -51,21 +51,15 @@ public class DriversController {
      * @param profileId the unique identifier of the person profile
      * @return the driver information
      */
-    @Operation(summary = "Get driver by profile ID", 
-               description = "Retrieves driver information associated with a specific person profile ID.")
+    @Operation(summary = "Get driver by profile ID", description = "Retrieves driver information associated with a specific person profile ID.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Driver retrieved successfully", 
-                     content = @Content(mediaType = APPLICATION_JSON_VALUE, 
-                                      schema = @Schema(implementation = DriverResource.class))),
-        @ApiResponse(responseCode = "404", description = "Driver not found for the specified profile ID", 
-                     content = @Content),
-        @ApiResponse(responseCode = "400", description = "Invalid profile ID format", 
-                     content = @Content)
+            @ApiResponse(responseCode = "200", description = "Driver retrieved successfully", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = DriverResource.class))),
+            @ApiResponse(responseCode = "404", description = "Driver not found for the specified profile ID", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid profile ID format", content = @Content)
     })
-    @GetMapping("/profiles/{profileId}/driver")
+    @GetMapping(value = "/drivers", params = "profile")
     public ResponseEntity<DriverResource> getDriverByProfileId(
-            @Parameter(description = "The profile ID to search for") 
-            @PathVariable Long profileId) {
+            @Parameter(description = "The profile ID to search for") @RequestParam("profile") Long profileId) {
 
         var query = new GetDriverByProfileIdQuery(profileId);
         var driverOpt = driverQueryService.handle(query);
@@ -82,27 +76,23 @@ public class DriversController {
 
     /**
      * Manually creates a driver for a profile ID.
-     * This endpoint is a fallback in case the automatic event-driven creation fails.
+     * This endpoint is a fallback in case the automatic event-driven creation
+     * fails.
      *
      * @param profileId the unique identifier of the person profile
      * @return the created driver information
      */
-    @Operation(summary = "Create driver manually", 
-               description = "Manually creates a driver for a specific profile ID. " +
-                           "This is a fallback endpoint in case automatic creation via events fails.")
+    @Operation(summary = "Create driver manually", description = "Manually creates a driver for a specific profile ID. "
+            +
+            "This is a fallback endpoint in case automatic creation via events fails.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Driver created successfully", 
-                     content = @Content(mediaType = APPLICATION_JSON_VALUE, 
-                                      schema = @Schema(implementation = DriverResource.class))),
-        @ApiResponse(responseCode = "409", description = "Driver already exists for this profile", 
-                     content = @Content),
-        @ApiResponse(responseCode = "400", description = "Invalid profile ID format", 
-                     content = @Content)
+            @ApiResponse(responseCode = "201", description = "Driver created successfully", content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = DriverResource.class))),
+            @ApiResponse(responseCode = "409", description = "Driver already exists for this profile", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid profile ID format", content = @Content)
     })
     @PostMapping("/profiles/{profileId}/driver")
     public ResponseEntity<DriverResource> createDriverForProfile(
-            @Parameter(description = "The profile ID to create driver for") 
-            @PathVariable Long profileId) {
+            @Parameter(description = "The profile ID to create driver for") @PathVariable Long profileId) {
 
         try {
             var command = new CreateDriverCommand(profileId);
@@ -122,4 +112,3 @@ public class DriversController {
         }
     }
 }
-

@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -57,8 +58,8 @@ public class MechanicsController {
             @ApiResponse(responseCode = "200", description = "Mechanic found"),
             @ApiResponse(responseCode = "404", description = "Mechanic not found")
     })
-    @GetMapping("/profile/{profileId}")
-    public ResponseEntity<MechanicResource> getMechanicByProfileId(@PathVariable Long profileId) {
+    @GetMapping(params = "profile")
+    public ResponseEntity<MechanicResource> getMechanicByProfileId(@RequestParam("profile") Long profileId) {
         var query = new GetMechanicByProfileIdQuery(profileId);
         var mechanic = queryService.handle(query);
 
@@ -113,8 +114,9 @@ public class MechanicsController {
             @ApiResponse(responseCode = "200", description = "Mechanics found"),
             @ApiResponse(responseCode = "404", description = "Workshop not found")
     })
-    @GetMapping("/workshop/{workshopId}")
-    public ResponseEntity<java.util.List<MechanicResource>> getMechanicsByWorkshopId(@PathVariable Long workshopId) {
+    @GetMapping(params = "workshop")
+    public ResponseEntity<java.util.List<MechanicResource>> getMechanicsByWorkshopId(
+            @RequestParam("workshop") Long workshopId) {
         var query = new com.safecar.platform.workshop.domain.model.queries.GetMechanicsByWorkshopIdQuery(workshopId);
         var mechanics = queryService.handle(query);
 

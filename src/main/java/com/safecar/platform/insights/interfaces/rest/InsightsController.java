@@ -24,34 +24,35 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Insights", description = "Vehicle telemetry analysis and insight generation endpoints")
 public class InsightsController {
 
-    private final VehicleInsightCommandService commandService;
-    private final VehicleInsightQueryService queryService;
+        private final VehicleInsightCommandService commandService;
+        private final VehicleInsightQueryService queryService;
 
-    @PostMapping("/generate/{telemetryId}")
-    @Operation(summary = "Generate vehicle insight", description = "Generates a new insight for a vehicle based on a telemetry sample ID.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Insight generated successfully", content = @Content(schema = @Schema(implementation = VehicleInsightResource.class))),
-            @ApiResponse(responseCode = "404", description = "Telemetry sample not found")
-    })
-    public ResponseEntity<VehicleInsightResource> generateInsight(@PathVariable Long telemetryId) {
-        var command = new com.safecar.platform.insights.domain.model.commands.GenerateVehicleInsightCommand(
-                telemetryId);
-        var insight = commandService.handle(command);
-        var response = VehicleInsightResourceFromEntityAssembler.toResource(insight);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+        @PostMapping(params = "telemetry-records")
+        @Operation(summary = "Generate vehicle insight", description = "Generates a new insight for a vehicle based on a telemetry sample ID.")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "201", description = "Insight generated successfully", content = @Content(schema = @Schema(implementation = VehicleInsightResource.class))),
+                        @ApiResponse(responseCode = "404", description = "Telemetry sample not found")
+        })
+        public ResponseEntity<VehicleInsightResource> generateInsight(
+                        @RequestParam("telemetry-records") Long telemetryId) {
+                var command = new com.safecar.platform.insights.domain.model.commands.GenerateVehicleInsightCommand(
+                                telemetryId);
+                var insight = commandService.handle(command);
+                var response = VehicleInsightResourceFromEntityAssembler.toResource(insight);
+                return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        }
 
-    @GetMapping("/vehicle/{vehicleId}")
-    @Operation(summary = "Get latest vehicle insight", description = "Retrieves the most recent insight generated for a specific vehicle.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Insight found", content = @Content(schema = @Schema(implementation = VehicleInsightResource.class))),
-            @ApiResponse(responseCode = "404", description = "Insight not found for the vehicle")
-    })
-    public ResponseEntity<VehicleInsightResource> getLatestInsight(@PathVariable Long vehicleId) {
-        var optional = queryService.handle(new GetVehicleInsightByVehicleIdQuery(vehicleId));
-        return optional
-                .map(VehicleInsightResourceFromEntityAssembler::toResource)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+        @GetMapping(params = "vehicle")
+        @Operation(summary = "Get latest vehicle insight", description = "Retrieves the most recent insight generated for a specific vehicle.")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Insight found", content = @Content(schema = @Schema(implementation = VehicleInsightResource.class))),
+                        @ApiResponse(responseCode = "404", description = "Insight not found for the vehicle")
+        })
+        public ResponseEntity<VehicleInsightResource> getLatestInsight(@RequestParam("vehicle") Long vehicleId) {
+                var optional = queryService.handle(new GetVehicleInsightByVehicleIdQuery(vehicleId));
+                return optional
+                                .map(VehicleInsightResourceFromEntityAssembler::toResource)
+                                .map(ResponseEntity::ok)
+                                .orElse(ResponseEntity.notFound().build());
+        }
 }

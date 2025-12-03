@@ -172,9 +172,9 @@ public class WorkshopsController {
                         @ApiResponse(responseCode = "200", description = "Workshop found"),
                         @ApiResponse(responseCode = "404", description = "Workshop not found")
         })
-        @GetMapping("/by-business-profile/{businessProfileId}")
+        @GetMapping(params = "business-profile")
         public ResponseEntity<WorkshopResource> getWorkshopByBusinessProfileId(
-                        @PathVariable Long businessProfileId) {
+                        @RequestParam("business-profile") Long businessProfileId) {
 
                 var query = new GetWorkshopByBusinessProfileIdQuery(businessProfileId);
                 var workshop = workshopQueryService.handle(query);

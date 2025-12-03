@@ -5,6 +5,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Agent
+.agent
+
 # macOS
 .DS_Store
 
